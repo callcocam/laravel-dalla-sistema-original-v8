@@ -44,9 +44,14 @@ Route::get('/remove-pontuacao-users', function (){
 });
 
 
+
 Auth::routes();
 
-Route::group(['prefix'=>'/','middleware'=>'auth'],function (\Illuminate\Routing\Router $router) {
+Route::get('/aguardando-aprovacao', function (){
+    return view('aguardando-aprovacao');
+})->middleware('auth')->name('home-aguardando-aprovacao');
+
+Route::group(['prefix'=>'/','middleware'=>['auth', 'status-sublished']],function (\Illuminate\Routing\Router $router) {
 
     //BLOCK USERS ADMIN
     $router->get('/', [AdminController::class,'index'])->name('admin.admin.index');

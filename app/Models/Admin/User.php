@@ -18,7 +18,7 @@ class User extends AbstractModel
      * @var array
      */
     protected $fillable = [
-        'name','slug', 'email','phone','document', 'password', 'is_admin',
+        'name','slug', 'email','phone','document', 'status', 'password', 'is_admin',
     ];
 
     /**
