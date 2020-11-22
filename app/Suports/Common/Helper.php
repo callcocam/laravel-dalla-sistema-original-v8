@@ -83,7 +83,7 @@ trait Helper
             return $input;
 
         }
-        if (!request()->hasFile(Options::DEFAULT_COLUMN_COVER) && !request()->file(Options::DEFAULT_COLUMN_COVER)->isValid()) {
+        if (!request()->hasFile(Options::DEFAULT_COLUMN_COVER) && !request()->file(Options::DEFAULT_COLUMN_COVER)) {
 
             return $input;
 
@@ -141,6 +141,10 @@ trait Helper
         }
         $image = $input[Options::DEFAULT_COLUMN_FILE];
 
+
+
+        $this->createFolder();
+
         return $this->initFile($input, $image);
     }
 
@@ -161,18 +165,7 @@ trait Helper
 
         $img = Image::make($image->getRealPath());
 
-        if(!is_dir(storage_path("app"))){
-            mkdir(storage_path("app"));
-        }
-        if(!is_dir(storage_path("public"))){
-            mkdir(storage_path("public"));
-        }
-        if(!is_dir(storage_path(sprintf("app/public/%s",$this->getTable())))){
-            mkdir(storage_path(sprintf("app/public/%s",$this->getTable())));
-        }
-        if(!is_dir(storage_path(sprintf("app/public/%s/%s",$this->getTable(), $date)))){
-            mkdir(storage_path(sprintf("app/public/%s/%s",$this->getTable(), $date)));
-        }
+        $this->createFolder();
         /*
         * Redimenciona a imagem e salva o arquivo em .storage/app/teste/thumbnail
         **/
@@ -217,6 +210,21 @@ trait Helper
         return $input;
     }
 
+    protected function createFolder(){
+        $date = Str::slug(date("Y|m"));
+        if(!is_dir(storage_path("app"))){
+            mkdir(storage_path("app"));
+        }
+        if(!is_dir(storage_path("public"))){
+            mkdir(storage_path("public"));
+        }
+        if(!is_dir(storage_path(sprintf("app/public/%s",$this->getTable())))){
+            mkdir(storage_path(sprintf("app/public/%s",$this->getTable())));
+        }
+        if(!is_dir(storage_path(sprintf("app/public/%s/%s",$this->getTable(), $date)))){
+            mkdir(storage_path(sprintf("app/public/%s/%s",$this->getTable(), $date)));
+        }
+    }
     protected function initTags(&$input)
     {
         if (!isset($input['tag'])) {

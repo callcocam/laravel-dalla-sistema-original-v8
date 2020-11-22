@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Forms\Core\FormBuilderServiceProvider;
+use App\Models\Admin\Post;
 use App\Suports\Notify\NotifyServiceProvider;
 use App\Suports\Shinobi\ShinobiServiceProvider;
 use App\Tenant\TenantServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,8 +36,19 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         $this->bluePrintMacros();
+        $this->component();
     }
 
+    public function component(){
+        view()->composer('*', function (View $view){
+            $posts = Post::query()->latest()->count();
+            $view->with('notificationsCount', $posts);
+        });
+        view()->composer('*', function (View $view){
+            $posts = Post::query()->latest()->limit(5)->get();
+            $view->with('notifications', $posts);
+        });
+    }
 
     public function bluePrintMacros()
     {

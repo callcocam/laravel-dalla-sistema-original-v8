@@ -51,7 +51,7 @@ Route::get('/aguardando-aprovacao', function (){
     return view('aguardando-aprovacao');
 })->middleware('auth')->name('home-aguardando-aprovacao');
 
-Route::group(['prefix'=>'/','middleware'=>['auth', 'status-sublished']],function (\Illuminate\Routing\Router $router) {
+Route::group(['prefix'=>'/','middleware'=>['auth', 'status-published']],function (\Illuminate\Routing\Router $router) {
 
     //BLOCK USERS ADMIN
     $router->get('/', [AdminController::class,'index'])->name('admin.admin.index');
@@ -83,6 +83,8 @@ Route::group(['prefix'=>'/','middleware'=>['auth', 'status-sublished']],function
     \App\Suports\AliasRouteService::resources('items', \App\Http\Controllers\Admin\ItemController::class,'items');
     \App\Suports\AliasRouteService::resources('visitas-ditribuidor', \App\Http\Controllers\Admin\VisitsDistributorController::class,'visits-distributors');
     \App\Suports\AliasRouteService::resources('comodatas', \App\Http\Controllers\Admin\LendingController::class,'lendings');
+    \App\Suports\AliasRouteService::resources('posts', \App\Http\Controllers\Admin\PostController::class,'posts');
+    \App\Suports\AliasRouteService::resources('downloads', \App\Http\Controllers\Admin\DownloadController::class,'downloads');
 
     $router->group(['prefix'=>'produtos'], function($router){
 

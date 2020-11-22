@@ -45,6 +45,22 @@
                     </li>
                 @endcan
             @endif
+            @if (Route::has('admin.posts.index'))
+                @canany(['admin.posts.index'])
+                    <li class="nav-item">
+                        <a class="nav-item-hold" href="{{ route('admin.posts.index') }}"><i class="nav-icon i-Communication-Tower"></i><span class="nav-text">{{ __('Notificações') }}</span></a>
+                        <div class="triangle"></div>
+                    </li>
+                @endcan
+            @endif
+            @if (Route::has('admin.downloads.index'))
+                @canany(['admin.downloads.index'])
+                    <li class="nav-item">
+                        <a class="nav-item-hold" href="{{ route('admin.downloads.index') }}"><i class="nav-icon i-Download"></i><span class="nav-text">{{ __('Downloads') }}</span></a>
+                        <div class="triangle"></div>
+                    </li>
+                @endcan
+            @endif
             @canany(['admin.events-next.index','admin.events-last.index'])
                 <li class="nav-item" data-item="events"><a class="nav-item-hold" href="#"><i class="nav-icon i-Calendar-2"></i><span class="nav-text">{{ __('Eventos') }}</span></a>
                     <div class="triangle"></div>

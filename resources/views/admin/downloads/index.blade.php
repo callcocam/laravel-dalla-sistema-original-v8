@@ -5,16 +5,11 @@
         <h1>{{ $tenant->name }}</h1>
         <ul>
             <li><a href="{{ route('admin.admin.index') }}">{{ __('Painel') }}</a></li>
-            <li>{{ __('Clientes') }}</li>
+            <li>{{ __('Downloads') }}</li>
         </ul>
         <div style="right: 2%;position: absolute;">
-            @if(request()->has('search'))
-                <a href="{{ route('admin.clients.index') }}" class="btn btn-warning btn-rounded pull-right"><span
-                        class="icon i-Security-Block"></span> {{ __('Lista completa') }}</a>
-            @endif
-            @can('admin.clients.create')
-                <a href="{{ route('admin.clients.create') }}" class="btn btn-success btn-rounded pull-right"><span
-                        class="icon i-Add-File"></span> {{ __('Cadastrar Cliente Evento') }}</a>
+            @can('admin.downloads.create')
+                <a href="{{ route('admin.downloads.create') }}" class="btn btn-success btn-rounded pull-right"><span class="icon i-Add-File"></span> {{ __('Cadastrar Download') }}</a>
             @endcan
         </div>
     </div>
@@ -22,9 +17,9 @@
 @section('content')
 
     @if($rows->count())
+
         <div class="accordion" id="accordionExample">
             <div class="row">
-
                 <div class="col-md-12">
                     <div class="card mt-4 mb-4">
                         <div class="card-header">
@@ -34,17 +29,6 @@
                                         <input class="form-control" name="search" value="{{ request('search') }}"
                                                id="search" type="search" placeholder="Termo de busca"
                                                aria-label="Search" style="width: 100%;">
-                                    </div>
-                                    <div class="col-md-5 mt-3 mt-md-0">
-                                        <select class="form-control" name="status" style="width: 100%;">
-                                            <option value="">==Todos==</option>
-                                            <option value="published"
-                                                    @if($status == "published") selected @endif>==Ativo==
-                                            </option>
-                                            <option value="draft"
-                                                    @if($status == "draft") selected @endif>==Inativo==
-                                            </option>
-                                        </select>
                                     </div>
                                     <div class="col-md-2 mt-3 mt-md-0">
                                         <button class="btn btn-primary btn-block">Buscar</button>
@@ -60,7 +44,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">E-Mail</th>
+                                        <th scope="col">Downloads</th>
                                         <th scope="col">Situação</th>
                                         <th scope="col" width="200">#</th>
                                     </tr>
@@ -71,25 +55,24 @@
                                         <tr>
                                             <td scope="row">{{ str_pad($row->id, 7, '0', STR_PAD_LEFT) }}</td>
                                             <td scope="row">{{ $row->name }}</td>
-                                            <td scope="row">{{ $row->email }}</td>
+                                            <td scope="row">{{ $row->views }}</td>
                                             <td scope="row"><span
                                                     class="badge badge-{{ check_status($row->status) }}">{{ check_status_text($row->status) }}</span>
                                             </td>
                                             <td scope="row">
-                                                @can('admin.clients.edit')
+                                                @can('admin.downloads.edit')
                                                     <a class="btn btn-primary btn-rounded"
-                                                       href="{{ route('admin.clients.edit',$row->id) }}">@include('admin.includes.icons.edit')</a>
+                                                       href="{{ route('admin.downloads.edit',$row->id) }}">@include('admin.includes.icons.edit')</a>
                                                 @endcan
-                                                @can('admin.clients.show')
+                                                @can('admin.downloads.show')
                                                     <a class="btn btn-info btn-rounded"
-                                                       href="{{ route('admin.clients.show',$row->id) }}">@include('admin.includes.icons.show')</a>
+                                                       href="{{ route('admin.downloads.show',$row->id) }}">@include('admin.includes.icons.show')</a>
                                                 @endcan
-                                                @can('admin.clients.destroy')
-                                                    @include('admin.includes.icons.destroy',['row'=>$row, 'route'=>'admin.clients.destroy'])
+                                                @can('admin.downloads.destroy')
+                                                    @include('admin.includes.icons.destroy',['row'=>$row, 'route'=>'admin.downloads.destroy'])
                                                 @endcan
                                             </td>
                                         </tr>
-
                                     @endforeach
                                     <!--  end of table row 3 -->
                                     </tbody>
@@ -106,15 +89,14 @@
                     </div>
                 </div>
             </div>
-            @else
-                <div class="row">
-                    <div class="col-12">
-                        @include("admin.includes.empty", [
-                               'url' =>route('admin.clients.create'),
-                               'back' =>route('admin.clients.index'),
-                           ])
-                    </div>
-                </div>
+    @else
+        <div class="row">
+            <div class="col-12">
+                @include("admin.includes.empty", [
+                       'url' =>route('admin.downloads.create')
+                   ])
+            </div>
+        </div>
 
     @endif
 
