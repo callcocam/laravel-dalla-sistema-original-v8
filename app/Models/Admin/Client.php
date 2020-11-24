@@ -101,4 +101,9 @@ class Client extends AbstractModel
         return $Bonifications;
 
     }
+
+    public function moviment(){
+        return $this->hasOne(Movimentation::class,'client_id');
+
+    }
 }

@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin\Api;
 use App\Http\Controllers\Admin\AbstractController;
 use App\Http\Requests\MovimentationStore;
 use App\Models\Admin\Client;
+use App\Models\Admin\Lending;
 use App\Models\Admin\Movimentation;
 
 class MovimentationController extends AbstractController
@@ -45,16 +46,16 @@ class MovimentationController extends AbstractController
             ], 500);
         }
 
+        $lending = Lending::find($request->input('lending_id'));
+        if(!$lending){
+            return response()->json([
+                'message' => "Produto não encontrado"
+            ], 500);
+        }
         $moviment = $client->moviment()->where('lending_id', $request->input('lending_id'))->first();
         if ($moviment) {
             $data = $request->input();
-//            if ($request->get('type') === 'in') {
-//                $data['quantity'] = (int)$moviment->quatity + (int)$request->get('quantity');
-//            } else {
-//                $data['quantity'] = (int)$moviment->quatity - (int)$request->get('quantity');
-//            }
             $data['client_id'] = $client->id;
-            //$this->getModel()->saveBy(array_merge($moviment->toArray(), $data));
             $this->getModel()->saveBy($data);
         } else {
             $data = $request->input();

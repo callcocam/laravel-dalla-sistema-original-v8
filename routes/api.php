@@ -20,7 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/history-barrels', [\App\Http\Controllers\Admin\Api\HistoryBarrelController::class, 'store'])->middleware('client');
-
 Route::get('/history-barrels',  [\App\Http\Controllers\Admin\Api\HistoryBarrelController::class, 'index'])->middleware('client');
 Route::post('/movimentations',  [\App\Http\Controllers\Admin\Api\MovimentationController::class, 'store'])->middleware('client');
 Route::get('/movimentations',  [\App\Http\Controllers\Admin\Api\MovimentationController::class, 'index'])->middleware('client');
