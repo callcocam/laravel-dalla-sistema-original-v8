@@ -199,7 +199,7 @@ trait Helper
                 $temp[Options::DEFAULT_COLUMN_FILE] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
                 $this->model->update($temp);
             }
-          
+
         }
         if (isset($input[Options::DEFAULT_COLUMN_COVER]) && $input[Options::DEFAULT_COLUMN_COVER]) {
             $input[Options::DEFAULT_COLUMN_COVER] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
