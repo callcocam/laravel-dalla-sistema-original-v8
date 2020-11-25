@@ -192,26 +192,6 @@ trait Helper
             'size' => $size
         ];
 
-        if (isset($input[Options::DEFAULT_COLUMN_FILE]) && $input[Options::DEFAULT_COLUMN_FILE]) {
-
-            $input[Options::DEFAULT_COLUMN_FILE] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
-            try {
-                $temp[Options::DEFAULT_COLUMN_FILE] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
-                $this->model->update($temp);
-            }
-            catch (\Exception $exception){}
-
-        }
-        if (isset($input[Options::DEFAULT_COLUMN_COVER]) && $input[Options::DEFAULT_COLUMN_COVER]) {
-            $input[Options::DEFAULT_COLUMN_COVER] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
-          //  if (isset($this->fillable[Options::DEFAULT_COLUMN_COVER])) {
-            try {
-                $temp[Options::DEFAULT_COLUMN_COVER] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
-                $this->model->update($temp);
-            }
-            catch (\Exception $exception){}
-          //  }
-        }
 
         /**
          * @var $fileExist MorphOne
