@@ -9,18 +9,26 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Models\Admin\HistoryBarrel;
+use App\Models\Admin\Movimentation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HistoryBarrelController extends AbstractController
 {
 
    protected $template = 'history-barrels';
 
-   protected $model = HistoryBarrel::class;
+   protected $model = Movimentation::class;
 
    public function barrels()
    {
        $user = Auth::user();
+
+       $sum = DB::table('movimentations')
+           ->select( DB::raw('SUM(quantity) as total'))
+           ->where('client_id',$user->id)
+           ->first();
+       $this->results['count_moviment'] = $sum->total;
 
        $this->results['user'] = $user;
 

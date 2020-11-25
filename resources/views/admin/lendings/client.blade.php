@@ -2,6 +2,7 @@
     <table class="table table-bordered">
         <thead>
         <tr>
+            <th scope="col">Data</th>
             <th scope="col">Name</th>
             <th scope="col">Quantidade</th>
         </tr>
@@ -10,6 +11,7 @@
         <!-- --------------------------- tr1 -------------------------------------------->
         @foreach($rows as $row)
             <tr>
+                <td scope="row">{{ $row->created_at }}</td>
                 <td scope="row">{{ $row->name }}</td>
                 <td scope="row">{{$row->sun()}}</td>
             </tr>
