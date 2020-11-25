@@ -15,7 +15,7 @@ class DownloadForm extends AbstractForm
                     'label'=>'Nome'
                 ]
             )
-            ->add('file', 'file',
+            ->add('cover', 'file',
                 [
                     'label'=>'Selecione um arquivo'
                 ]

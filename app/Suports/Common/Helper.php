@@ -88,7 +88,7 @@ trait Helper
             return $input;
 
         }
-        $image = $input[Options::DEFAULT_COLUMN_COVER];
+        $image = request()->file(Options::DEFAULT_COLUMN_COVER);
 
         return $this->initFile($input, $image);
     }
@@ -121,8 +121,7 @@ trait Helper
 
         }
 
-        if(is_array($input[Options::DEFAULT_COLUMN_FILE]))
-        {
+        if (is_array($input[Options::DEFAULT_COLUMN_FILE])) {
             $files = $input[Options::DEFAULT_COLUMN_FILE];
 
             foreach ($files as $file) {
@@ -134,34 +133,36 @@ trait Helper
 
             return $input;
         }
-        if (!request()->hasFile(Options::DEFAULT_COLUMN_FILE) && !request()->file(Options::DEFAULT_COLUMN_FILE)->isValid()) {
+        if (!request()->hasFile(Options::DEFAULT_COLUMN_FILE)) {
 
             return $input;
 
         }
-        $image = $input[Options::DEFAULT_COLUMN_FILE];
+        if (!request()->file(Options::DEFAULT_COLUMN_FILE)->isValid()) {
 
+            return $input;
 
+        }
+        $image = request()->file(Options::DEFAULT_COLUMN_FILE);;
 
-        $this->createFolder();
 
         return $this->initFile($input, $image);
     }
 
-    protected function initFile(&$input,UploadedFile  $image, $ignore = false)
+    protected function initFile(&$input, UploadedFile $image, $ignore = false)
     {
 
 
-        array_push($this->fillable,'company_id','uuid');
+        array_push($this->fillable, 'company_id', 'uuid');
 
         $date = Str::slug(date("Y|m"));
 
         $extension = $image->clientExtension();
-        $fileType=$image->getMimeType();
-        $size=$image->getSize();
+        $fileType = $image->getMimeType();
+        $size = $image->getSize();
         $original = explode('.', $image->getClientOriginalName());
 
-        $name = sprintf("%s-%s-%s.%s", rand(),time(),Str::slug(reset($original)), $extension);
+        $name = sprintf("%s-%s-%s.%s", rand(), time(), Str::slug(reset($original)), $extension);
 
         $img = Image::make($image->getRealPath());
 
@@ -171,7 +172,7 @@ trait Helper
         **/
         $img->resize(600, 400, function ($constraint) {
             $constraint->aspectRatio();
-        })->save( storage_path(sprintf("app/public/%s/%s/%s",$this->getTable(), $date,$name)) );
+        })->save(storage_path(sprintf("app/public/%s/%s/%s", $this->getTable(), $date, $name)));
 
         $destinationPath = storage_path('app/teste/original');
 
@@ -181,26 +182,42 @@ trait Helper
         //$result = $image->storePubliclyAs(sprintf("%s/%s",$this->getTable(), $date),$name);
 
         $data = [
-            'company_id'=>get_tenant_id(),
-            'uuid'=>Str::uuid(),
-            'name'=>$name,
-            'fullPath'=>sprintf("storage/%s",sprintf("%s/%s/%s",$this->getTable(), $date,$name)),
-            'dir'=>'/dist/upload/images',
-            'fileType'=>$fileType,
-            'ext'=>$extension,
-            'size'=>$size
+            'company_id' => get_tenant_id(),
+            'uuid' => Str::uuid(),
+            'name' => $name,
+            'fullPath' => sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name)),
+            'dir' => '/dist/upload/images',
+            'fileType' => $fileType,
+            'ext' => $extension,
+            'size' => $size
         ];
+
+        if (isset($input[Options::DEFAULT_COLUMN_FILE]) && $input[Options::DEFAULT_COLUMN_FILE]) {
+
+            $input[Options::DEFAULT_COLUMN_FILE] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
+            if (isset($this->fillable[Options::DEFAULT_COLUMN_FILE])) {
+                $temp[Options::DEFAULT_COLUMN_FILE] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
+                $this->model->update($temp);
+            }
+          
+        }
+        if (isset($input[Options::DEFAULT_COLUMN_COVER]) && $input[Options::DEFAULT_COLUMN_COVER]) {
+            $input[Options::DEFAULT_COLUMN_COVER] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
+            if (isset($this->fillable[Options::DEFAULT_COLUMN_COVER])) {
+                $temp[Options::DEFAULT_COLUMN_COVER] = sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name));
+                $this->model->update($temp);
+            }
+        }
 
         /**
          * @var $fileExist MorphOne
          */
         $fileExist = $this->model->file();
 
-        if($ignore){
+        if ($ignore) {
             $fileExist->create($data);
-        }
-        else{
-            if($fileExist->first()):
+        } else {
+            if ($fileExist->first()):
                 $fileExist->update($data);
             else:
                 $fileExist->create($data);
@@ -210,21 +227,23 @@ trait Helper
         return $input;
     }
 
-    protected function createFolder(){
+    protected function createFolder()
+    {
         $date = Str::slug(date("Y|m"));
-        if(!is_dir(storage_path("app"))){
+        if (!is_dir(storage_path("app"))) {
             mkdir(storage_path("app"));
         }
-        if(!is_dir(storage_path("public"))){
+        if (!is_dir(storage_path("public"))) {
             mkdir(storage_path("public"));
         }
-        if(!is_dir(storage_path(sprintf("app/public/%s",$this->getTable())))){
-            mkdir(storage_path(sprintf("app/public/%s",$this->getTable())));
+        if (!is_dir(storage_path(sprintf("app/public/%s", $this->getTable())))) {
+            mkdir(storage_path(sprintf("app/public/%s", $this->getTable())));
         }
-        if(!is_dir(storage_path(sprintf("app/public/%s/%s",$this->getTable(), $date)))){
-            mkdir(storage_path(sprintf("app/public/%s/%s",$this->getTable(), $date)));
+        if (!is_dir(storage_path(sprintf("app/public/%s/%s", $this->getTable(), $date)))) {
+            mkdir(storage_path(sprintf("app/public/%s/%s", $this->getTable(), $date)));
         }
     }
+
     protected function initTags(&$input)
     {
         if (!isset($input['tag'])) {
@@ -293,19 +312,19 @@ trait Helper
 
         foreach ($data as $key => $value) {
 
-            if(Str::contains($key,"tasks")){
+            if (Str::contains($key, "tasks")) {
 
                 $task = array_filter($value);
 
-                if($task):
-                    array_push($this->fillable,'company_id','uuid');
+                if ($task):
+                    array_push($this->fillable, 'company_id', 'uuid');
                     /**
                      * @var $fileExist MorphOne
                      */
                     $tasksExist = $this->model->tasks();
 
-                    if($current = $tasksExist->where('name',$task['name'])->first()):
-                        $tasksExist->update(array_merge($current->toArray(),$task));
+                    if ($current = $tasksExist->where('name', $task['name'])->first()):
+                        $tasksExist->update(array_merge($current->toArray(), $task));
                     else:
                         $tasksExist->create($task);
                     endif;
@@ -317,6 +336,7 @@ trait Helper
 
         return $input;
     }
+
     protected function initCategorizable(&$input)
     {
         if (!isset($input['category'])) {
@@ -338,6 +358,7 @@ trait Helper
 
         return $input;
     }
+
     protected function initVideozable(&$input)
     {
         if (!isset($input['video'])) {
@@ -373,7 +394,7 @@ trait Helper
 
         unset($data['id']);
 
-        array_push($this->fillable,'company_id','uuid');
+        array_push($this->fillable, 'company_id', 'uuid');
         /**
          * @var $fileExist MorphOne
          */
@@ -381,12 +402,12 @@ trait Helper
 
         $data = $input['address'];
 
-        if($addressExist->first()):
+        if ($addressExist->first()):
 
             $data['updated_at'] = now()->format("Y-m-d H:i:s");
-            $current = $addressExist->first(['name','slug','zip','city','state','country', 'street','district','number','complement'])->toArray();
+            $current = $addressExist->first(['name', 'slug', 'zip', 'city', 'state', 'country', 'street', 'district', 'number', 'complement'])->toArray();
             unset($current['created_at']);
-            $addressExist->update(array_merge($current,$data));
+            $addressExist->update(array_merge($current, $data));
         else:
             $addressExist->create($data);
         endif;
@@ -422,7 +443,7 @@ trait Helper
 
     protected $titile = 'Lista de Company';
 
-    protected $messages =  'Operação finalizada com sucesso!!';
+    protected $messages = 'Operação finalizada com sucesso!!';
 
     /**
      * @return array
