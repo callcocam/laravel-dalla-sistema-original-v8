@@ -15,4 +15,5 @@ class Download extends AbstractModel
         'user_id','name','slug','file','cover','status', 'description','views','created_at','updated_at',
     ];
 
+
 }
