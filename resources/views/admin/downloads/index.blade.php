@@ -44,7 +44,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Downloads</th>
+{{--                                        <th scope="col">Downloads</th>--}}
                                         <th scope="col">Situação</th>
                                         <th scope="col" width="200">#</th>
                                     </tr>
@@ -55,7 +55,7 @@
                                         <tr>
                                             <td scope="row">{{ str_pad($row->id, 7, '0', STR_PAD_LEFT) }}</td>
                                             <td scope="row"><a target="_blank" href="{{ asset($row->cover) }}">{{ $row->name }}</a></td>
-                                            <td scope="row">{{ $row->views }}</td>
+{{--                                            <td scope="row">{{ $row->views }}</td>--}}
                                             <td scope="row"><span
                                                     class="badge badge-{{ check_status($row->status) }}">{{ check_status_text($row->status) }}</span>
                                             </td>
