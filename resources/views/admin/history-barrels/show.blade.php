@@ -15,13 +15,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="card-header">
+                            <h1 class="card-title">Produtos em comodata</h1>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Tota/Entradas</th>
-                                    <th scope="col">Tota/Saidas</th>
+                                    <th scope="col">Estoque</th>
                                 </tr>
                                 </thead>
                                 <tbody id="names">
@@ -29,15 +31,28 @@
                                 @foreach($user->lendings() as $row)
                                     <tr>
                                         <td scope="row">{{ $row->name }}</td>
-                                        <td scope="row">{{$row->sun($row,auth()->id())}}</td>
-                                        <td scope="row">{{$row->sun($row,auth()->id(), 'out')}}</td>
+
+                                        <td scope="row">
+                                            @if($row->sun($row,auth()->id()) && $row->sun($row,auth()->id(), 'out'))
+                                            {{ Calcular($row->sun($row,auth()->id()), $row->sun($row,auth()->id(), 'out'), '-') }}
+                                            @else
+                                                {{ $row->sun($row,auth()->id()) }}
+                                            @endif
+                                        </td>
+
                                     </tr>
                                 @endforeach
                                 <!--  end of table row 3 -->
                                 </tbody>
                             </table>
                         </div>
-
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Movimentações do produtos</h1>
+                    </div>
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
