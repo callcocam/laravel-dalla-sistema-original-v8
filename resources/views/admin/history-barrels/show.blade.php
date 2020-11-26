@@ -5,7 +5,7 @@
         <h1>{{ $tenant->name }}</h1>
         <ul>
             <li><a href="{{ route('admin.admin.index') }}">{{ __('Painel') }}</a></li>
-            <li>{{ __('Movimentação') }} - {{ $user->name }}</li>
+            <li>{{ __('Items em comodata') }} - {{ $user->name }}</li>
         </ul>
     </div>
 @endsection
