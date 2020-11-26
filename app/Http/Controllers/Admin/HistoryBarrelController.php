@@ -24,12 +24,6 @@ class HistoryBarrelController extends AbstractController
    {
        $user = Auth::user();
 
-       $sum = DB::table('movimentations')
-           ->select( DB::raw('SUM(quantity) as total'))
-           ->where('client_id',$user->id)
-           ->first();
-       $this->results['count_moviment'] = $sum->total;
-
        $this->results['user'] = $user;
 
        $this->results['tenant'] = get_tenant();

@@ -15,22 +15,29 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <section class="ul-product-detail__box">
-                            <div class="row">
-                                <div class="col-lg-12 mt-4 text-center">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="ul-product-detail__border-box">
-                                                <div class="ul-product-detail--icon mb-2"><i class="i-Calculator text-danger text-25 font-weight-500"></i></div>
-                                                <h5 class="heading">Quantidade</h5>
-                                                <p class="text-muted text-12">{{ $count_moviment }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <hr />
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Tota/Entradas</th>
+                                    <th scope="col">Tota/Saidas</th>
+                                </tr>
+                                </thead>
+                                <tbody id="names">
+                                <!-- --------------------------- tr1 -------------------------------------------->
+                                @foreach($user->lendings() as $row)
+                                    <tr>
+                                        <td scope="row">{{ $row->name }}</td>
+                                        <td scope="row">{{$row->sun($row,auth()->id())}}</td>
+                                        <td scope="row">{{$row->sun($row,auth()->id(), 'out')}}</td>
+                                    </tr>
+                                @endforeach
+                                <!--  end of table row 3 -->
+                                </tbody>
+                            </table>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -57,12 +64,6 @@
                                     </tbody>
                                 @endif
                                 <!--  end of table row 3 -->
-                               <tfoot>
-                               <tr>
-                                   <th scope="row" colspan="3">Total</th>
-                                   <th scope="row">{{ $count_moviment }}</th>
-                               </tr>
-                               </tfoot>
                             </table>
                         </div>
                     </div>

@@ -77,7 +77,7 @@
             @if (Route::has('admin.barrels.client.index'))
                 @canany(['admin.barrels.client.index'])
                     <li class="nav-item">
-                        <a class="nav-item-hold" href="{{ route('admin.barrels.client.index') }}"><i class="nav-icon i-Search-People"></i><span class="nav-text">{{ __('Movimentações') }}</span></a>
+                        <a class="nav-item-hold" href="{{ route('admin.barrels.client.index') }}"><i class="nav-icon i-Search-People"></i><span class="nav-text">{{ __('Items/Comodata') }}</span></a>
                         <div class="triangle"></div>
                     </li>
                 @endcan

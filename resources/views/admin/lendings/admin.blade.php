@@ -2,10 +2,8 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Situação</th>
-                    <th scope="col">Quantidade</th>
                     <th scope="col" width="200">#</th>
                 </tr>
                 </thead>
@@ -13,12 +11,10 @@
                 <!-- --------------------------- tr1 -------------------------------------------->
                 @foreach($rows as $row)
                     <tr>
-                        <td scope="row">{{ str_pad($row->id, 7, '0', STR_PAD_LEFT) }}</td>
                         <td scope="row">{{ $row->name }}</td>
                         <td scope="row"><span
                                 class="badge badge-{{ check_status($row->status) }}">{{ check_status_text($row->status) }}</span>
                         </td>
-                        <td scope="row">{{$row->sun($row)}}</td>
                         <td scope="row">
                             @can('admin.lendings.edit')
                                 <a class="btn btn-primary btn-rounded"

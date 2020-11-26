@@ -46,6 +46,11 @@ class User extends AbstractModel
         return $this->address()->first(['zip','city','state','country', 'street','district','number','complement']);
     }
 
+    public function lendings(){
+
+        return Lending::query()->whereIn('id',auth()->user()->moviments()->pluck('lending_id')->unique()->toArray())->get();
+    }
+
     public function moviments(){
         if(auth()->check() && auth()->user()->hasAnyRole('cliente')){
             return $this->hasMany(Movimentation::class,'client_id')->get();
@@ -54,5 +59,8 @@ class User extends AbstractModel
             return Movimentation::query()->get();
         }
 
+    }
+    public function movimentsAll(){
+         return Movimentation::query()->orderByDesc('created_at')->get();
     }
 }

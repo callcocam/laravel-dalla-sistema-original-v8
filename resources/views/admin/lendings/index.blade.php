@@ -46,18 +46,16 @@
                                         <th scope="col">Data</th>
                                         <th scope="col">Produto</th>
                                         <th scope="col">Saida/Entrada</th>
-                                        <th scope="col">Quantidade</th>
                                     </tr>
                                     </thead>
                                     <tbody id="names">
                                     <!-- --------------------------- tr1 -------------------------------------------->
-                                    @if($user->moviments())
-                                        @foreach($user->moviments() as $row)
+                                    @if($user->movimentsAll())
+                                        @foreach($user->movimentsAll() as $row)
                                             <tr>
                                                 <td scope="row">{{ $row->created_at->format('d/m/Y') }}</td>
                                                 <td scope="row">{{ $row->lending->name }}</td>
                                                 <td scope="row">{{ $row->type }}</td>
-                                                <td scope="row">{{ $row->quantity }}</td>
                                             </tr>
                                         @endforeach
                                     @endif

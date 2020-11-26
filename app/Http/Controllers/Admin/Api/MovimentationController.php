@@ -47,11 +47,23 @@ class MovimentationController extends AbstractController
         }
 
         $lending = Lending::find($request->input('lending_id'));
+
+
         if(!$lending){
             return response()->json([
                 'message' => "Produto não encontrado"
             ], 500);
         }
+
+       if($request->input('type') == 'out'){
+           $quantity = $lending->sun($lending,$client->id);
+           if($quantity < $request->input('quantity')){
+               return response()->json([
+                   'message' => "O estoque do produto é menor que a quantidade enviada!"
+               ], 500);
+           }
+       }
+
         $moviment = $client->moviment()->where('lending_id', $request->input('lending_id'))->first();
         if ($moviment) {
             $data = $request->input();

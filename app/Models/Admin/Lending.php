@@ -21,13 +21,15 @@ class Lending extends AbstractModel
         return form_read($value);
     }
 
-    public function sun($model){
+    public function sun($model,$user, $type="in"){
 
-        if(auth()->check() && auth()->user()->hasAnyRole('cliente')){
-            return $model->hasMany(Movimentation::class)->where('client_id', auth()->id())->count('quantity');
-        }
-        else{
-            return $model->hasMany(Movimentation::class)->count('quantity');
-        }
+        $sum = DB::table('movimentations')
+            ->select( DB::raw('SUM(quantity) as total'))
+            ->where('client_id',$user)
+            ->where('type',$type)
+            ->where('lending_id',$model->id)
+            ->first();
+
+        return $sum->total;
     }
 }
