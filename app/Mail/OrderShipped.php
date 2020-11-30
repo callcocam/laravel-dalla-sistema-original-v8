@@ -21,6 +21,8 @@ class OrderShipped extends Mailable
      */
     public function __construct($event, $template)
     {
+
+        $this->from(get_tenant()->email);
         $this->order = $event;
         $this->template = $template;
         $this->subject(sprintf("Pedido ( %s ) realizado no sistema %s", str_pad($this->order->id, 7, '0', STR_PAD_LEFT), $this->order->company->name ));

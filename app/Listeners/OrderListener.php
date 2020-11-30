@@ -18,8 +18,11 @@ class OrderListener
     public function handle($event)
     {
         if($event->event->status=='completed'){
-           // Mail::to($event->event->client->email)->send(new OrderShipped($event->event, 'client'));
-           // Mail::to($event->event->company->email)->send(new OrderShipped($event->event, 'company'));
+            Mail::to($event->event->client->email)->send(new OrderShipped($event->event, 'client'));
+            Mail::to($event->event->company->email)->send(new OrderShipped($event->event, 'company'));
+        }
+        if($event->event->status=='transit'){
+            Mail::to($event->event->client->email)->send(new OrderShipped($event->event, 'client'));
         }
        }
 }

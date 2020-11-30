@@ -1,4 +1,4 @@
-@if(!$user->hasAnyRole('cliente'))
+@if(!auth()->user()->hasAnyRole('cliente'))
     <div class="invoice-summary invoice-summary-input float-right">
         <p>{{ __('Sub Total') }}: <span>{{ form_read($rows->price) }}</span></p>
         @if($rows->discount)
