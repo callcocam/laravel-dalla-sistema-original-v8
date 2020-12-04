@@ -13,6 +13,8 @@ use App\Models\Admin\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 abstract class AbstractController extends Controller
@@ -20,7 +22,7 @@ abstract class AbstractController extends Controller
 
     protected $template = 'dashboard';
     protected $route = '';
-    protected $perPage = 12;
+    protected $perPage = 50;
     protected $order = "id";
     protected $direction = "ASC";
     protected $classSearch;
@@ -40,6 +42,9 @@ abstract class AbstractController extends Controller
 
     public function index(){
 
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
         $this->results['user'] = Auth::user();
         $this->results['tenant'] = get_tenant();
         $this->results['search'] = '';
@@ -88,6 +93,9 @@ abstract class AbstractController extends Controller
      */
     public function create()
     {
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
         $form = null;
 
         if($this->formClass){
@@ -127,6 +135,9 @@ abstract class AbstractController extends Controller
 
     protected function save($request){
 
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
         // It will automatically use current request, get the rules, and do the validation
 
         $this->getModel()->saveBy($request->all());
@@ -161,6 +172,9 @@ abstract class AbstractController extends Controller
      */
     public function show($id)
     {
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
         $this->results['user'] = Auth::user();
 
         $this->results['tenant'] = get_tenant();
@@ -191,6 +205,7 @@ abstract class AbstractController extends Controller
      */
     public function print($id)
     {
+
 
         $this->results['user'] = Auth::user();
 
@@ -223,6 +238,9 @@ abstract class AbstractController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
         $this->results['user'] = Auth::user();
 
         $this->results['tenant'] = get_tenant();
@@ -271,6 +289,10 @@ abstract class AbstractController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
+
         $this->results['user'] = Auth::user();
         $this->results['tenant'] = get_tenant();
 
@@ -285,6 +307,9 @@ abstract class AbstractController extends Controller
      */
     public function destroy($id)
     {
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
         if(!$this->model){
 
             notify()->error("O modelo não foi informado, se o problema persistir contate o administardor!!!!");

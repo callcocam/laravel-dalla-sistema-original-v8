@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin;
 use App\Forms\PostForm;
 use App\Http\Requests\PostStore;
 use App\Models\Admin\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends AbstractController
 {
@@ -42,5 +43,19 @@ class PostController extends AbstractController
         }
 
         return parent::show($id);
+    }
+
+    public function all()
+    {
+        $this->results['user'] = Auth::user();
+        $this->results['tenant'] = get_tenant();
+        $this->results['search'] = '';
+        $this->results['status'] = '';
+
+        if($this->model){
+            $this->results['rows'] = $this->getSource()->orderBy("created_at", "DESC")->paginate(1000);
+        }
+
+        return view(sprintf('admin.%s.all', $this->template), $this->results);
     }
 }

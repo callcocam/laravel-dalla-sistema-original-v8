@@ -19,53 +19,96 @@
     @if($rows->count())
         <div class="accordion" id="accordionExample">
             <div class="row">
-                @foreach($rows as $row)
 
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="card mt-4 mb-4">
-                            <div class="card-body">
-                                <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
-                                    <div>
-                                        <h5>{{ $row->name }}</h5>
-                                        <p class="ul-task-manager__paragraph mb-3">Data: {{ date_carbom_format($row->created_at)->format('d/m/Y') }}</p>
+                <div class="col-md-12">
+                    <div class="card mt-4 mb-4">
+                        <div class="card-header">
+                            <form class="form-inline">
+                                <div class="form-row" style="width: 100%;">
+                                    <div class="col-md-5">
+                                        <input class="form-control" name="search" value="{{ request('search') }}"
+                                               id="search" type="search" placeholder="Termo de busca"
+                                               aria-label="Search" style="width: 100%;">
+                                    </div>
+                                    <div class="col-md-5 mt-3 mt-md-0">
+                                        <select class="form-control" name="status" style="width: 100%;">
+                                            <option value="">==Todos==</option>
+                                            <option value="published"
+                                                    @if($status == "published") selected @endif>==Ativo==
+                                            </option>
+                                            <option value="draft"
+                                                    @if($status == "draft") selected @endif>==Inativo==
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 mt-3 mt-md-0">
+                                        <button class="btn btn-primary btn-block">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Situação</th>
+                                        <th scope="col" width="200">#</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="names">
+                                    <!-- --------------------------- tr1 -------------------------------------------->
+                                    @foreach($rows as $row)
+                                        <tr>
+                                            <td scope="row">{{ $row->name }}</td>
+                                            <td scope="row">{{ $row->description }}</td>
+                                            <td scope="row"><span
+                                                    class="badge badge-{{ check_status($row->status) }}">{{ check_status_text($row->status) }}</span>
+                                            </td>
+                                            <td scope="row">
+                                                @can('admin.permissions.edit')
+                                                    <a class="btn btn-primary btn-rounded"
+                                                       href="{{ route('admin.permissions.edit',$row->id) }}">@include('admin.includes.icons.edit')</a>
+                                                @endcan
+                                                @can('admin.permissions.show')
+                                                    <a class="btn btn-info btn-rounded"
+                                                       href="{{ route('admin.permissions.show',$row->id) }}">@include('admin.includes.icons.show')</a>
+                                                @endcan
+                                                @can('admin.permissions.destroy')
+                                                    @include('admin.includes.icons.destroy',['row'=>$row, 'route'=>'admin.permissions.destroy'])
+                                                @endcan
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
+                                    <!--  end of table row 3 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer d-sm-flex justify-content-sm-between align-items-sm-center">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ $rows->render() }}
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer d-sm-flex justify-content-sm-between align-items-sm-center">
-                                @can('admin.permissions.edit')
-                                    <a class="btn btn-primary btn-rounded" href="{{ route('admin.permissions.edit',$row->id) }}">  @include('admin.includes.icons.edit',['row'=>$row])</a>
-                                @endcan
-                                <a class="btn btn-outline-{{ check_status($row->status) }} btn-rounded">{{  check_status_text($row->status) }}</a>
-                                @can('admin.permissions.show')
-                                    <btn-delete-component event="{{ sprintf("form-%s", $row->id) }}">
-                                        <form ref="form" action="{{ route('admin.permissions.destroy',$row->id) }}" method="POST">
-                                            @csrf
-                                            @method("DELETE")
-                                        </form>
-                                    </btn-delete-component>
-                                @endcan
-                            </div>
                         </div>
                     </div>
-
-                @endforeach
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                {{ $rows->render() }}
-            </div>
-        </div>
-    @else
-        <div class="row">
-            <div class="col-12">
-                @include("admin.includes.empty", [
-                       'url' =>route('admin.permissions.create')
-                   ])
-            </div>
-        </div>
-
-    @endif
+            @else
+                <div class="row">
+                    <div class="col-12">
+                        @include("admin.includes.empty", [
+                               'url' =>route('admin.permissions.create'),
+                               'back' =>route('admin.permissions.index'),
+                           ])
+                    </div>
+                </div>
+            @endif
 
 @endsection
 

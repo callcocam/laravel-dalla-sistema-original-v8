@@ -71,6 +71,9 @@ Route::group(['prefix'=>'/','middleware'=>['auth', 'status-published']],function
 
     $router->get('/historico-barrils', [ \App\Http\Controllers\Admin\HistoryBarrelController::class, 'index'])->name('admin.history-barrels.index');
 
+    $router->get('/todas-as-notificacoes', [ \App\Http\Controllers\Admin\PostController::class, 'all'])->name('admin.posts.all.index');
+    $router->get('/generate-prermissions', [ \App\Http\Controllers\Admin\PermissionController::class, 'generate_prermissions'])->name('admin.posts.generate-prermissions.index');
+
     \App\Suports\AliasRouteService::resources('usuarios', \App\Http\Controllers\Admin\UserController::class,'users');
     \App\Suports\AliasRouteService::resources('permissions', \App\Http\Controllers\Admin\PermissionController::class,'permissions');
     \App\Suports\AliasRouteService::resources('roles', \App\Http\Controllers\Admin\RoleController::class,'roles');
