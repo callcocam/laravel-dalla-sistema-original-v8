@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-12">
                     @include("admin.includes.empty", [
-                           'url' =>route('admin.videos.create')
+                           'url' =>'admin.videos.create'
                        ])
                 </div>
             </div>

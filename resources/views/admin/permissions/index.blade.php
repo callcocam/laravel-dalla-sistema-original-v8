@@ -103,8 +103,8 @@
                 <div class="row">
                     <div class="col-12">
                         @include("admin.includes.empty", [
-                               'url' =>route('admin.permissions.create'),
-                               'back' =>route('admin.permissions.index'),
+                               'url' =>'admin.permissions.create',
+                               'back' =>'admin.permissions.index',
                            ])
                     </div>
                 </div>

@@ -110,8 +110,8 @@
                 <div class="row">
                     <div class="col-12">
                         @include("admin.includes.empty", [
-                               'url' =>route('admin.clients.create'),
-                               'back' =>route('admin.clients.index'),
+                               'url' =>'admin.clients.create',
+                               'back' =>'admin.clients.index',
                            ])
                     </div>
                 </div>

@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-12">
                 @include("admin.includes.empty", [
-                       'url' =>route('admin.sub-menus.create')
+                       'url' =>'admin.sub-menus.create'
                    ])
             </div>
         </div>

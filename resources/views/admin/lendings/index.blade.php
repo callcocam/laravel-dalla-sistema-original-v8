@@ -71,8 +71,8 @@
                 <div class="row">
                     <div class="col-12">
                         @include("admin.includes.empty", [
-                               'url' =>route('admin.lendings.create'),
-                               'back' =>route('admin.lendings.index'),
+                               'url' =>'admin.lendings.create',
+                               'back' =>'admin.lendings.index',
                            ])
                     </div>
                 </div>

@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-12">
                 @include("admin.includes.empty", [
-                       'url' =>route('admin.events.create')
+                       'url' =>'admin.events.create'
                    ])
             </div>
         </div>
