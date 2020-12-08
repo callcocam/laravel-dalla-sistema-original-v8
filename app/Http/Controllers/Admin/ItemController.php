@@ -8,8 +8,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Forms\ItemForm;
+use App\Helpers\MetaHelper;
 use App\Http\Requests\ItemStore;
 use App\Models\Admin\Item;
+use App\Models\Admin\Meta;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends AbstractController
 {
@@ -34,11 +37,10 @@ class ItemController extends AbstractController
         $this->getModel()->saveBy($request->all());
 
         if($this->getModel()->getResultLastId()){
-
+            $order = $this->getModel()->getModel()->order;
+            MetaHelper::make($order->client,$order->created_at->format('m'));
             notify()->success($this->getModel()->getMessage());
-
             return back()->with('success', $this->getModel()->getMessage());
-
         }
 
         notify()->error($this->getModel()->getMessage());

@@ -22,7 +22,7 @@ class Client extends AbstractModel
      * @var array
      */
     protected $fillable = [
-        'name','slug', 'fantasy','phone','document','email','barrels','discount', 'password', 'is_admin', 'description',
+        'name','slug', 'fantasy','phone','document','email','barrels','discount','meta', 'password', 'is_admin', 'description',
     ];
 
     /**
@@ -63,6 +63,10 @@ class Client extends AbstractModel
         return $this->hasMany(Order::class);
     }
 
+    public function meta($created){
+
+        return $this->hasOne(Meta::class)->whereMonth('created_at',$created)->first();
+    }
 
     public function ordersProduct(){
 

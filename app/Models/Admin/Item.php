@@ -18,6 +18,26 @@ class Item extends AbstractModel
     ];
 
 
+    public function meta($product, $client, $order){
+
+        return Meta::query()
+            ->where('product_id',$product)
+            ->where('client_id', $client
+            )->whereMonth('created_at',$order->created_at->format('m'))->first();
+    }
+
+    public function countItems($product, $order){
+
+        $data = $this->query()
+            ->where('product_id',$product)
+            ->whereMonth('created_at',$order->created_at->format('m'))->select( DB::raw('sum( amount ) as quantity') )
+            ->first();
+
+        if($data)
+            return $data->quantity;
+
+        return '0';
+    }
     public function saveBy($data)
     {
 

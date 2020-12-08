@@ -343,3 +343,55 @@ if ( ! function_exists('Calcular'))
     }
 }
 
+
+if ( ! function_exists('progress'))
+{
+    /**
+     * Get the configuration path.
+     *
+     * @param  string $path
+     * @return string
+     */
+    function progress($v1,$v2) {
+
+       $base = Calcular($v1, $v2, "-");
+       $base = Calcular($base, 100, "*");
+       $current = Calcular($base, $v1, "/");
+
+       return form_w(Calcular(100, $current, "-"));
+
+    }
+}
+
+
+if ( ! function_exists('progressIn'))
+{
+    /**
+     * Get the configuration path.
+     *
+     * @param  string $path
+     * @return string
+     */
+    function progressIn($v1,$v2, $val) {
+
+
+       return intval(progress($v1,$v2)) > $val;
+
+    }
+}
+
+if ( ! function_exists('progressOut'))
+{
+    /**
+     * Get the configuration path.
+     *
+     * @param  string $path
+     * @return string
+     */
+    function progressOut($v1,$v2, $val) {
+
+
+       return intval(progress($v1,$v2)) < $val;
+
+    }
+}

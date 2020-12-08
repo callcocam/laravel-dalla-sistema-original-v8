@@ -12,6 +12,10 @@
                 <a href="{{ route('admin.clients.index') }}" class="btn btn-warning btn-rounded pull-right"><span
                         class="icon i-Security-Block"></span> {{ __('Lista completa') }}</a>
             @endif
+                @can('admin.metas.index')
+                    <a href="{{ route('admin.metas.index') }}" class="btn btn-warning btn-rounded pull-right"><span
+                            class="icon i-Bar-Chart"></span> {{ __('Visualizar metas') }}</a>
+                @endcan
             @can('admin.clients.create')
                 <a href="{{ route('admin.clients.create') }}" class="btn btn-success btn-rounded pull-right"><span
                         class="icon i-Add-File"></span> {{ __('Cadastrar Cliente Evento') }}</a>
@@ -55,13 +59,34 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
+                                @if (isset($errors) && $errors->any())
+                                    <div>
+                                        <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
+
+                                        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                    @if (session()->has('success'))
+                                       <div class="alert alert-success">
+                                           {{ session()->get('success') }}
+                                       </div>
+                                    @endif
+                                    @if (session()->has('error'))
+                                        <div class="alert alert-danger">
+                                            {{ session()->get('error') }}
+                                        </div>
+                                    @endif
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">E-Mail</th>
                                         <th scope="col">Situação</th>
+                                        <th scope="col">Meta</th>
                                         <th scope="col" width="200">#</th>
                                     </tr>
                                     </thead>
@@ -69,11 +94,28 @@
                                     <!-- --------------------------- tr1 -------------------------------------------->
                                     @foreach($rows as $row)
                                         <tr>
-                                            <td scope="row">{{ str_pad($row->id, 7, '0', STR_PAD_LEFT) }}</td>
                                             <td scope="row">{{ $row->name }}</td>
                                             <td scope="row">{{ $row->email }}</td>
                                             <td scope="row"><span
                                                     class="badge badge-{{ check_status($row->status) }}">{{ check_status_text($row->status) }}</span>
+                                            </td>
+                                            <td scope="row">
+
+                                                <form action="{{ route('admin.clients.update', $row->id) }}" method="post" id="form-{{$row->id}}">
+                                                    @method('put')
+                                                    @csrf
+                                                    <div class="form-group col-md-12">
+                                                        <div class="input-group mb-3">
+                                                            <input type="hidden" name="id"  value="{{ $row->id }}">
+                                                            <input type="text" name="meta" class="form-control" value="{{ $row->meta }}" placeholder="Meta">
+                                                            <div class="input-group-append">
+                                                                <span onclick="document.getElementById('form-{{$row->id}}').submit()" class="input-group-text badge-primary cursor-pointer"
+                                                                      id="basic-addon{{$row->id}}"> <i
+                                                                        class="fa fa-reply-all"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </td>
                                             <td scope="row">
                                                 @can('admin.clients.edit')

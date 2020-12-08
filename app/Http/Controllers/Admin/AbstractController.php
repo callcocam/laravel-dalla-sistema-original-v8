@@ -296,7 +296,7 @@ abstract class AbstractController extends Controller
         $this->results['user'] = Auth::user();
         $this->results['tenant'] = get_tenant();
 
-        return view(sprintf('admin.%s.update', $this->template), $this->results);
+        return back();
     }
 
     /**
