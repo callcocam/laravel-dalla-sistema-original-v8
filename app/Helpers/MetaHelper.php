@@ -12,7 +12,6 @@ class MetaHelper
 {
 
     public static function make($client,$currentDate){
-
         if(!$client)
             return;
         if ($orders = $client->orders()->whereMonth('created_at', $currentDate)->get()):
@@ -26,7 +25,8 @@ class MetaHelper
                 $count = Item::query()->whereIn('product_id',array_values($products))
                     ->whereMonth('created_at',$currentDate)->select( DB::raw('sum( amount ) as quantity') )
                     ->first();
-                if ($meta = $client->meta($currentDate)) {
+                $meta = $client->meta($currentDate);
+                if ($meta) {
                     $meta->meta = $count->quantity ?? 0;
                     $meta->save();
                 } else {

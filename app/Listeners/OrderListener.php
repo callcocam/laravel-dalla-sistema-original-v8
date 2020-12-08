@@ -3,11 +3,7 @@
 namespace App\Listeners;
 
 use App\Helpers\MetaHelper;
-use App\Mail\OrderMail;
 use App\Mail\OrderShipped;
-use App\Models\Admin\Item;
-use App\Models\Admin\Meta;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class OrderListener
