@@ -15,7 +15,6 @@ class MetaHelper
 
         if(!$client)
             return;
-
         if ($orders = $client->orders()->whereMonth('created_at', $currentDate)->get()):
             $products = [];
             foreach ($orders as $order):
