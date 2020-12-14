@@ -12,15 +12,19 @@ class MetaHelper
 {
 
     public static function make($client,$currentDate){
+
         if(!$client)
             return;
-        if ($orders = $client->orders()->whereMonth('created_at', $currentDate)->get()):
+        $orders = $client->orders()->whereMonth('created_at', $currentDate)->get();
+
+        if ($orders):
             $products = [];
             foreach ($orders as $order):
                 foreach ($order->items as $item):
                     $products[$item->product_id] = $item->product_id;
                 endforeach;
             endforeach;
+
             if ($products):
                 $count = Item::query()->whereIn('product_id',array_values($products))
                     ->whereMonth('created_at',$currentDate)->select( DB::raw('sum( amount ) as quantity') )

@@ -12,21 +12,24 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet" />
     <link href="{{ asset('_dist/admin/css/themes/lite-purple.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('_dist/admin/css/plugins/perfect-scrollbar.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('_dist/admin/css/plugins/metisMenu.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     @stack('styles')
     @notify_css
     <!-- Styles -->
 </head>
 <body class="text-left">
-<div class="app-admin-wrap layout-sidebar-large">
+<div class="app-admin-wrap layout-sidebar-vertical sidebar-compact-onhover sidebar-closed sidebar-compact">
 
-    @include("admin.includes.main-header")
-    @include("admin.includes.sidebar")
+
+    @include("admin.includes.sidebar-other")
+    <div class="switch-overlay"></div>
     <!-- =============== Left side End ================-->
-    <div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content-wrap mobile-menu-content bg-off-white m-0">
+    @include("admin.includes.main-header-other")
         <!-- ============ Body content start ============= -->
 
-        <div id="app" class="main-content">
+        <div id="app" class="main-content pt-4">
             @yield('breadcrumb')
             <div class="separator-breadcrumb border-top"></div>
         @yield('content')
@@ -43,15 +46,22 @@
 <script src="{{ asset('_dist/admin/js/plugins/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('_dist/admin/js/plugins/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('_dist/admin/js/scripts/script.min.js') }}"></script>
+<script src="{{ asset('_dist/admin/js/scripts/script_2.min.js') }}"></script>
 <script src="{{ asset('_dist/admin/js/scripts/sidebar.large.script.min.js') }}"></script>
+<script src="{{ asset('_dist/admin/js/plugins/metisMenu.min.js') }}"></script>
+<script src="{{ asset('_dist/admin/js/scripts/layout-sidebar-vertical.min.js') }}"></script>
 <script src="{{ asset('_dist/admin/js/plugins/tagging.min.js') }}"></script>
 <script src="{{ asset('_dist/admin/js/formatCurrency.js') }}"></script>
+<!-- Charting library -->
+<script src="https://unpkg.com/chart.js@2.9.3/dist/Chart.min.js"></script>
+<!-- Chartisan -->
+<script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
 
 <script src="https://kit.fontawesome.com/f248d703d3.js" crossorigin="anonymous"></script>
-<script src="{{ asset('js/app.js') }}"></script>
 
 @notify_js
 @notify_render
 @stack('scripts')
+@stack('chartsJs')
 </body>
 </html>
