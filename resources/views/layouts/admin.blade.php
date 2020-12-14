@@ -19,7 +19,7 @@
     <!-- Styles -->
 </head>
 <body class="text-left">
-<div class="app-admin-wrap layout-sidebar-vertical sidebar-compact-onhover sidebar-closed sidebar-compact">
+<div class="app-admin-wrap layout-sidebar-vertical sidebar-full">
 
 
     @include("admin.includes.sidebar-other")

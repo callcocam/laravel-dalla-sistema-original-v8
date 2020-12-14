@@ -2,11 +2,11 @@
     <div class="gull-brand pr-3 text-center mt-4 mb-2 d-flex justify-content-center align-items-center"><img
             class="pl-3" src="{{ asset($tenant->cover) }}" alt="alt"/>
         <!--  <span class=" item-name text-20 text-primary font-weight-700">GULL</span> -->
-{{--        <div class="sidebar-compact-switch ml-auto"><span></span></div>--}}
+        <div class="sidebar-compact-switch ml-auto"><span></span></div>
     </div>
     <!--  user -->
-    <div class="scroll-nav ps" data-perfect-scrollbar="data-perfect-scrollbar"
-         data-suppress-scroll-x="false">
+    <div class="scroll-nav ps ps--active-y" data-perfect-scrollbar="data-perfect-scrollbar"
+         data-suppress-scroll-x="true">
         <div class="side-nav">
             <div class="main-menu">
                 <ul class="metismenu" id="menu">
