@@ -10,11 +10,7 @@
 @endsection
 @section('content')
     @include('admin.dashboard.reports.counts')
-    <div class="row">
-        <div class="col-12">
-            @include('admin.includes.charts.meta')
-        </div>
-    </div>
+   
     <div class="row">
         <div class="col-6">
             @include('admin.dashboard.reports.last-orders')

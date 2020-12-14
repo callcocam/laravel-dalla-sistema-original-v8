@@ -35,9 +35,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Charts $charts)
     {
-        $charts->register([
-            \App\Charts\MetaChart::class
-        ]);
+//        $charts->register([
+//            \App\Charts\MetaChart::class
+//        ]);
         Paginator::useBootstrap();
         $this->bluePrintMacros();
         $this->component();
