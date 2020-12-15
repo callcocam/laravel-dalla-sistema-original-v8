@@ -9,9 +9,12 @@
     </div>
 @endsection
 @section('content')
-    @include('admin.dashboard.reports.counts')
-
     <div class="row">
+        <div class="col-12">
+            @include('admin.dashboard.reports.counts')
+        </div>
+    </div>
+    <div class="row mt-3">
         <div class="col-6">
             @include('admin.dashboard.reports.last-orders')
         </div>
