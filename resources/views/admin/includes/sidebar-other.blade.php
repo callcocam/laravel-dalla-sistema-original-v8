@@ -11,13 +11,14 @@
             <div class="main-menu">
                 <ul class="metismenu" id="menu">
                     @foreach(\App\Helpers\MenuHelper::make()->getMenus() as $menu)
-                        @if(!$menu['submenu'])
-                            <li class="Ul_li--hover"><a href="{{ route($menu['route']) }}"><i
-                                        class="{{ $menu['icon'] }} text-20 mr-2 text-muted"></i><span
-                                        class="item-name text-15 text-muted">{{ __($menu['label']) }}</span></a>
-                            </li>
-                        @else
-                            @canany($menu['permissions'])
+                        @canany($menu['permissions'])
+                            @if(!$menu['submenu'])
+                                <li class="Ul_li--hover"><a href="{{ route($menu['route']) }}"><i
+                                            class="{{ $menu['icon'] }} text-20 mr-2 text-muted"></i><span
+                                            class="item-name text-15 text-muted">{{ __($menu['label']) }}</span></a>
+                                </li>
+                            @else
+
                                 <li class="Ul_li--hover @if(request()->routeIs($menu['permissions'])) mm-active @endif">
                                     <a class="has-arrow" href="#">
                                         <i class="{{ $menu['icon'] }} text-20 mr-2 text-muted"></i>
@@ -28,25 +29,29 @@
                                             @if (Route::has($submenu['route']))
                                                 @can($submenu['route'])
                                                     <li class="nav-item"><a
-                                                            @isset($submenu['title']) title="{{$submenu['title']}}" @endisset
+                                                            @isset($submenu['title']) title="{{$submenu['title']}}"
+                                                            @endisset
                                                             href="{{ route($submenu['route']) }}"><i
                                                                 class="nav-icon i-Arrow-Forward-2"></i><span
-                                                                class="item-name">{{ __($submenu['label']) }}</span></a></li>
+                                                                class="item-name">{{ __($submenu['label']) }}</span></a>
+                                                    </li>
                                                 @endcan
                                             @endif
                                         @endforeach
                                     </ul>
                                 </li>
-                            @endcan
-                        @endif
+                            @endif
+                        @endcan
                     @endforeach
-                        <li class="Ul_li--hover"><a href="{{ route('admin.auth.profile.form') }}"><i
-                                    class="i-Administrator text-20 mr-2 text-muted"></i><span
-                                    class="item-name text-15 text-muted">{{ __('Minha Conta') }}</span></a>
-                        </li>
-                        <li class="Ul_li--hover"><a  href="#" onclick="event.preventDefault();
-                       document.getElementById('logout-form').submit();"><i class="i-Arrow-Inside text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">{{ __("Sair") }}</span></a>
-                        </li>
+                    <li class="Ul_li--hover"><a href="{{ route('admin.auth.profile.form') }}"><i
+                                class="i-Administrator text-20 mr-2 text-muted"></i><span
+                                class="item-name text-15 text-muted">{{ __('Minha Conta') }}</span></a>
+                    </li>
+                    <li class="Ul_li--hover"><a href="#" onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();"><i
+                                class="i-Arrow-Inside text-20 mr-2 text-muted"></i><span
+                                class="item-name text-15 text-muted">{{ __("Sair") }}</span></a>
+                    </li>
                 </ul>
             </div>
         </div>
