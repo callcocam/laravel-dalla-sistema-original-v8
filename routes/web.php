@@ -91,6 +91,8 @@ Route::group(['prefix'=>'/','middleware'=>['auth', 'status-published']],function
     \App\Suports\AliasRouteService::resources('posts', \App\Http\Controllers\Admin\PostController::class,'posts');
     \App\Suports\AliasRouteService::resources('downloads', \App\Http\Controllers\Admin\DownloadController::class,'downloads');
 
+    $router->get('downloads/{id}/download', [ \App\Http\Controllers\Admin\DownloadController::class, 'download'])->name('admin.downloads.download');
+
     $router->group(['prefix'=>'produtos'], function($router){
 
         $router->post('/bonus/cadastrar', [ProductController::class,'bonus'])->name('admin.products.bonus.stores')->middleware('can:admin.products.bonus.stores');

@@ -39,8 +39,11 @@ class DownloadController extends AbstractController
 
             $rows = $this->getModel()->findById($id);
             $rows->increment('views',1);
+
+
+            return response()->download(storage_path(sprintf("app/public/%s", str_replace('storage/', '', $rows->cover))));
         }
 
-        return parent::show($id);
+        return back()->withErrors("Arquivo ou imagem não encontrado");
     }
 }

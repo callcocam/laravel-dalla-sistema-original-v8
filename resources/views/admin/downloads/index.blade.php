@@ -53,7 +53,7 @@
                                     @foreach($rows as $row)
                                         <tr>
                                             <td scope="row">
-                                                <a target="_blank" class="btn btn-outline-danger" href="{{ asset($row->cover) }}">
+                                                <a target="_blank" class="btn btn-outline-danger" href="{{ route('admin.downloads.download', $row->id) }}">
                                                     {{ $row->name }} <i class="fa fa-download"></i>
                                                 </a>
                                             </td>

@@ -18,7 +18,6 @@
                                             class="item-name text-15 text-muted">{{ __($menu['label']) }}</span></a>
                                 </li>
                             @else
-
                                 <li class="Ul_li--hover @if(request()->routeIs($menu['permissions'])) mm-active @endif">
                                     <a class="has-arrow" href="#">
                                         <i class="{{ $menu['icon'] }} text-20 mr-2 text-muted"></i>

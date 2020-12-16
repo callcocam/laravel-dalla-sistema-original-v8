@@ -71,6 +71,33 @@ if ( ! function_exists('get_tenant_id'))
     }
 }
 
+if ( ! function_exists('month_name'))
+{
+    /**
+     * Get the configuration path.
+     *
+     * @param  string $path
+     * @return string
+     */
+    function month_name($month)
+    {
+        $months = [
+            '01'=>'Janeiro',
+            '02'=>'Fevereiro',
+            '03'=>'Março',
+            '04'=>'Abril',
+            '05'=>'Máio',
+            '06'=>'Junho',
+            '07'=>'Julho',
+            '08'=>'Agosto',
+            '09'=>'Setembro',
+            '10'=>'Outubro',
+            '11'=>'Novembro',
+            '12'=>'Dezembro',
+        ];
+        return $months[str_pad($month, 2, '0', STR_PAD_LEFT)];
+    }
+}
 if ( ! function_exists('get_tenant'))
 {
     /**

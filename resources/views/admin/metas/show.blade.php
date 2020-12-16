@@ -17,8 +17,8 @@
             <div class="card mb-4">
                 <div
                     class="card-header">{{ $rows->client->name }} você
-                    atingio {{ progress($rows->client->meta,$rows->meta) }} de sua meta para o mês
-                    de {{ $rows->created_at->format("M") }}</div>
+                    atingiu {{ progress($rows->client->meta,$rows->meta) }}% de sua meta para o mês
+                    de {{ month_name($rows->created_at->format("m")) }}/{{ $rows->created_at->format("Y") }}</div>
                 <div class="card-body">
                     <div class="card text-left">
                         <div class="card-body">
