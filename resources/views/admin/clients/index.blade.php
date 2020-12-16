@@ -18,7 +18,7 @@
                 @endcan
             @can('admin.clients.create')
                 <a href="{{ route('admin.clients.create') }}" class="btn btn-success btn-rounded pull-right"><span
-                        class="icon i-Add-File"></span> {{ __('Cadastrar Cliente Evento') }}</a>
+                        class="icon i-Add-File"></span> {{ __('Cadastrar') }}</a>
             @endcan
         </div>
     </div>
