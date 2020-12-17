@@ -26,7 +26,7 @@ class LoadRouterHelper
     /**
      * @var array
      */
-    private $ignore = ['generate-prermissions','auth','store','auto-route','roles','permissions','pos-events','translate','remove-file'];
+    private $ignore = ['generate-prermissions','auth','auto-route','roles','permissions','pos-events','translate','remove-file'];
 
     /**
      * @var array
