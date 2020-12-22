@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Helpers\MetaHelper;
 use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Mail;
+use PharIo\Manifest\InvalidEmailException;
 
 class OrderListener
 {
@@ -20,7 +21,9 @@ class OrderListener
 
         if ($event->event->status == 'completed') {
             MetaHelper::make($event->event->client, $event->event->created_at->format('m'));
-            Mail::to($event->event->client->email)->send(new OrderShipped($event->event, 'client'));
+            try {
+                Mail::to($event->event->client->email)->send(new OrderShipped($event->event, 'client'));
+            }catch (\Exception $exception){}
             //Mail::to($event->event->company->email)->send(new OrderShipped($event->event, 'company'));
             MetaHelper::score($event->event->client);
 
