@@ -63,4 +63,9 @@ class User extends AbstractModel
     public function movimentsAll(){
          return Movimentation::query()->orderByDesc('created_at')->get();
     }
+
+    public function score(){
+
+          return $this->hasMany(Score::class, 'client_id')->first();
+    }
 }

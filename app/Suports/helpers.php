@@ -108,7 +108,9 @@ if ( ! function_exists('get_tenant'))
      */
     function get_tenant()
     {
-        return \App\Models\Admin\Company::find(get_tenant_id());
+        $tenant  = \App\Models\Admin\Company::find(get_tenant_id());
+        //$tenant->append('pontos');
+        return $tenant;
     }
 }
 

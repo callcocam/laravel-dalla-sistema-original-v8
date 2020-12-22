@@ -186,4 +186,8 @@ class Item extends AbstractModel
         }
         return $this;
     }
+
+    public function sumItems($where=[]){
+        return   $this->model->select( DB::raw('sum( total ) as resut') )->where($where)->first();
+    }
 }

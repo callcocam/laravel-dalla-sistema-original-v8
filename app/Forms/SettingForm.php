@@ -32,6 +32,12 @@ class SettingForm extends AbstractForm
                 'class' => $this->formBuilder->create(AddresForm::class),
                 'wrapper' => false,
                 'wrapper_class' => false,
+            ]) ->add('pontos', 'form', [
+                'label_attr' => ['class' => 'footer-bottom border-top pt-3 d-flex flex-column flex-sm-row align-items-center'],
+                'class' => $this->formBuilder->create(PontosForm::class),
+                'wrapper' => false,
+                'label'=>'Controle de pontuação e bonus',
+                'wrapper_class' => false,
             ])
             ->addDescription()
             ->getStatus()

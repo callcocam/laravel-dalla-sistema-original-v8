@@ -110,4 +110,9 @@ class Client extends AbstractModel
         return $this->hasOne(Movimentation::class,'client_id');
 
     }
+
+    public function score(){
+
+        return $this->hasMany(Score::class, 'client_id')->first();
+    }
 }
