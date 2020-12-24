@@ -46,6 +46,18 @@ class MenuHelper extends \ArrayObject
                         ]
                     ],
                 ],
+                'supports' => [
+                    'permissions' => ['admin.supports-material.index'],
+                    'route' => null,
+                    'icon' => 'i-Shopping-Cart',
+                    'label' => 'Material de apoio',
+                    'submenu' => [
+                        [
+                            'route' => 'admin.supports-material.index',
+                            'label' => 'Material de apoio',
+                        ],
+                    ],
+                ],
                 'settings' => [
                     'permissions' => ['admin.settings.setting'],
                     'route' => 'admin.settings.setting',

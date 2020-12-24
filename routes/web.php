@@ -90,6 +90,7 @@ Route::group(['prefix'=>'/','middleware'=>['auth', 'status-published']],function
     \App\Suports\AliasRouteService::resources('comodatas', \App\Http\Controllers\Admin\LendingController::class,'lendings');
     \App\Suports\AliasRouteService::resources('posts', \App\Http\Controllers\Admin\PostController::class,'posts');
     \App\Suports\AliasRouteService::resources('downloads', \App\Http\Controllers\Admin\DownloadController::class,'downloads');
+    \App\Suports\AliasRouteService::resources('material-de-apoio', \App\Http\Controllers\Admin\SupportController::class,'supports-material');
 
     $router->get('downloads/{id}/download', [ \App\Http\Controllers\Admin\DownloadController::class, 'download'])->name('admin.downloads.download');
 
