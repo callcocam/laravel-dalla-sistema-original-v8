@@ -15,7 +15,4 @@ class Support extends AbstractModel
         'user_id','name','slug','price','stock','status', 'description','updated_at',
     ];
 
-    public function getPriceAttribute($value){
-        return form_read($value);
-    }
 }

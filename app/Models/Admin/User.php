@@ -68,4 +68,5 @@ class User extends AbstractModel
 
           return $this->hasMany(Score::class, 'client_id')->first();
     }
+
 }

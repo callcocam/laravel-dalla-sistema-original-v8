@@ -6,28 +6,31 @@
  * https://www.sigasmart.com.br
  */
 
-if (! function_exists('___')) {
+use App\Models\Admin\Item;
+use Illuminate\Support\Facades\DB;
+
+if (!function_exists('___')) {
     /**
      * Translate the given message.
      *
-     * @param  string|null  $key
-     * @param  array  $replace
-     * @param  string|null  $locale
+     * @param string|null $key
+     * @param array $replace
+     * @param string|null $locale
      * @return string|array|null
      */
     function ___($key = null, $replace = [], $locale = null)
     {
         $fileSystem = new \Illuminate\Filesystem\Filesystem();
 
-        if(!$fileSystem->exists(resource_path(sprintf("lang/%s.json", config('app.locale'))))){
-            $fileSystem->put(resource_path(sprintf("lang/%s.json", config('app.locale'))),json_encode(["Welcome"=>"Bem Vindo"]));
+        if (!$fileSystem->exists(resource_path(sprintf("lang/%s.json", config('app.locale'))))) {
+            $fileSystem->put(resource_path(sprintf("lang/%s.json", config('app.locale'))), json_encode(["Welcome" => "Bem Vindo"]));
         }
-       $source =  json_decode($fileSystem->get(resource_path(sprintf("lang/%s.json", config('app.locale')))),true);
+        $source = json_decode($fileSystem->get(resource_path(sprintf("lang/%s.json", config('app.locale')))), true);
 
-       if(!\Illuminate\Support\Arr::exists($source,$key)){
-           $fileSystem->put(resource_path(sprintf("lang/%s.json", config('app.locale'))),json_encode(\Illuminate\Support\Arr::add($source,$key,$key)));
+        if (!\Illuminate\Support\Arr::exists($source, $key)) {
+            $fileSystem->put(resource_path(sprintf("lang/%s.json", config('app.locale'))), json_encode(\Illuminate\Support\Arr::add($source, $key, $key)));
 
-       }
+        }
 
         if (is_null($key)) {
             return $key;
@@ -36,19 +39,20 @@ if (! function_exists('___')) {
         return trans($key, $replace, $locale);
     }
 }
-if(!function_exists('attrs')){
-    function  attrs($label,$attrs=[],$type='text'){
+if (!function_exists('attrs')) {
+    function attrs($label, $attrs = [], $type = 'text')
+    {
 
         $defaults = array_merge([
-            'type'=>isset($attrs['type'])?$attrs['type']:$type,
-            'class'=>'form-control',
-            'id'=>isset($attrs['id'])?$attrs['id']:$attrs['name'],
-            'placeholder'=>isset($attrs['placeholder'])?__($attrs['placeholder']):__($label),
-        ],$attrs);
+            'type' => isset($attrs['type']) ? $attrs['type'] : $type,
+            'class' => 'form-control',
+            'id' => isset($attrs['id']) ? $attrs['id'] : $attrs['name'],
+            'placeholder' => isset($attrs['placeholder']) ? __($attrs['placeholder']) : __($label),
+        ], $attrs);
 
         $attr = [];
 
-        foreach ($defaults as $key => $default){
+        foreach ($defaults as $key => $default) {
             $attr[] = sprintf('%s="%s"', $key, $default);
         }
 
@@ -56,12 +60,11 @@ if(!function_exists('attrs')){
     }
 }
 
-if ( ! function_exists('get_tenant_id'))
-{
+if (!function_exists('get_tenant_id')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
     function get_tenant_id($tenant = 'company_id')
@@ -71,52 +74,49 @@ if ( ! function_exists('get_tenant_id'))
     }
 }
 
-if ( ! function_exists('month_name'))
-{
+if (!function_exists('month_name')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
     function month_name($month)
     {
         $months = [
-            '01'=>'Janeiro',
-            '02'=>'Fevereiro',
-            '03'=>'Março',
-            '04'=>'Abril',
-            '05'=>'Máio',
-            '06'=>'Junho',
-            '07'=>'Julho',
-            '08'=>'Agosto',
-            '09'=>'Setembro',
-            '10'=>'Outubro',
-            '11'=>'Novembro',
-            '12'=>'Dezembro',
+            '01' => 'Janeiro',
+            '02' => 'Fevereiro',
+            '03' => 'Março',
+            '04' => 'Abril',
+            '05' => 'Máio',
+            '06' => 'Junho',
+            '07' => 'Julho',
+            '08' => 'Agosto',
+            '09' => 'Setembro',
+            '10' => 'Outubro',
+            '11' => 'Novembro',
+            '12' => 'Dezembro',
         ];
         return $months[str_pad($month, 2, '0', STR_PAD_LEFT)];
     }
 }
-if ( ! function_exists('get_tenant'))
-{
+if (!function_exists('get_tenant')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
     function get_tenant()
     {
-        $tenant  = \App\Models\Admin\Company::find(get_tenant_id());
+        $tenant = \App\Models\Admin\Company::find(get_tenant_id());
         //$tenant->append('pontos');
         return $tenant;
     }
 }
 
 
-if ( ! function_exists('set_form_value'))
-{
+if (!function_exists('set_form_value')) {
     /**
      * Get the configuration path.
      *
@@ -126,12 +126,12 @@ if ( ! function_exists('set_form_value'))
      */
     function set_form_value($value, $parent = null)
     {
-        if($value){
-            if(is_string($value)){
+        if ($value) {
+            if (is_string($value)) {
                 return $value;
             }
 
-            if(isset($value->{$parent})){
+            if (isset($value->{$parent})) {
                 return $value->{$parent};
             }
         }
@@ -140,42 +140,18 @@ if ( ! function_exists('set_form_value'))
     }
 }
 
-if ( ! function_exists('check_status'))
-{
+if (!function_exists('check_status')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
     function check_status($status, $options = [
-        'published'=>"success", 'draft'=>"warning", 'deleted'=>"danger"
+        'published' => "success", 'draft' => "warning", 'deleted' => "danger"
     ])
     {
-        if(isset($options[$status]))
-          return $options[$status];
-
-
-        return "info";
-    }
-}
-
-
-if ( ! function_exists('get_tag_color'))
-{
-    /**
-     * Get the configuration path.
-     *
-     * @param array $options
-     * @return string
-     */
-    function get_tag_color($options = [
-        '1'=>"success", '2'=>"warning", '3'=>"danger", '4'=>"primary", '5'=>"info"
-    ])
-    {
-        $status = rand(1,5);
-
-        if(isset($options[$status]))
+        if (isset($options[$status]))
             return $options[$status];
 
 
@@ -184,19 +160,40 @@ if ( ! function_exists('get_tag_color'))
 }
 
 
-if ( ! function_exists('check_status_text'))
-{
+if (!function_exists('get_tag_color')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param array $options
+     * @return string
+     */
+    function get_tag_color($options = [
+        '1' => "success", '2' => "warning", '3' => "danger", '4' => "primary", '5' => "info"
+    ])
+    {
+        $status = rand(1, 5);
+
+        if (isset($options[$status]))
+            return $options[$status];
+
+
+        return "info";
+    }
+}
+
+
+if (!function_exists('check_status_text')) {
+    /**
+     * Get the configuration path.
+     *
+     * @param string $path
      * @return string
      */
     function check_status_text($status, $options = [
-        'published'=>"Publicado", 'draft'=>"Rascunho", 'deleted'=>"Deletado"
+        'published' => "Publicado", 'draft' => "Rascunho", 'deleted' => "Deletado"
     ])
     {
-        if(isset($options[$status]))
+        if (isset($options[$status]))
             return $options[$status];
 
 
@@ -259,28 +256,26 @@ if (!function_exists('date_carbom_format')) {
 }
 
 
-
-if ( ! function_exists('get_tags'))
-{
+if (!function_exists('get_tags')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
     function get_tags($values)
     {
 
-        if($values){
+        if ($values) {
 
             $tags = [];
 
-            foreach ($values as $value){
+            foreach ($values as $value) {
 
                 $tags[] = $value->tag_name;
             }
 
-            return trim(implode(",",$tags));
+            return trim(implode(",", $tags));
         }
 
         return "";
@@ -288,16 +283,15 @@ if ( ! function_exists('get_tags'))
 }
 
 
-
-if ( ! function_exists('form_w'))
-{
+if (!function_exists('form_w')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
-    function form_w($post) {
+    function form_w($post)
+    {
         $source = array('.', ',');
         $replace = array('', '.');
         $valor = str_replace($source, $replace, $post); //remove os pontos e substitui a virgula pelo ponto
@@ -306,36 +300,36 @@ if ( ! function_exists('form_w'))
 }
 
 
-if ( ! function_exists('form_read'))
-{
+if (!function_exists('form_read')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
-    function form_read($post) {
-        if(is_numeric($post)):
-            return @number_format($post,2, ",", "."  );
+    function form_read($post)
+    {
+        if (is_numeric($post)):
+            return @number_format($post, 2, ",", ".");
         endif;
         return $post;
     }
 }
 
-if ( ! function_exists('Calcular'))
-{
+if (!function_exists('Calcular')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
-    function Calcular($v1,$v2,$op) {
+    function Calcular($v1, $v2, $op)
+    {
         try {
-            $v1 = str_replace ( ".", "", $v1);
-            $v1 = str_replace ( ",", ".", $v1);
-            $v2 = str_replace ( ".", "",$v2 );
-            $v2 = str_replace ( ",", ".",$v2);
+            $v1 = str_replace(".", "", $v1);
+            $v1 = str_replace(",", ".", $v1);
+            $v2 = str_replace(".", "", $v2);
+            $v2 = str_replace(",", ".", $v2);
             switch ($op) {
                 case "+":
                     $r = $v1 + $v2;
@@ -363,64 +357,106 @@ if ( ! function_exists('Calcular'))
                     $r = $v1;
                     break;
             }
-            $ret = @number_format ( $r, 2, ",", "." );
+            $ret = @number_format($r, 2, ",", ".");
             return $ret;
-        }catch (Exception $exception){
-            return sprintf("%s - Valor 01: %s, Valor 02: %s, Operação: %s",$exception->getMessage(), $v1, $v2, $op);
+        } catch (Exception $exception) {
+            return sprintf("%s - Valor 01: %s, Valor 02: %s, Operação: %s", $exception->getMessage(), $v1, $v2, $op);
         }
 
     }
 }
 
 
-if ( ! function_exists('progress'))
-{
+if (!function_exists('progress')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
-    function progress($v1,$v2) {
+    function progress($v1, $v2)
+    {
 
-       $base = Calcular($v1, $v2, "-");
-       $base = Calcular($base, 100, "*");
-       $current = Calcular($base, $v1, "/");
+        $base = Calcular($v1, $v2, "-");
+        $base = Calcular($base, 100, "*");
+        $current = Calcular($base, $v1, "/");
 
-       return form_w(Calcular(100, $current, "-"));
+        return form_w(Calcular(100, $current, "-"));
 
     }
 }
 
 
-if ( ! function_exists('progressIn'))
-{
+if (!function_exists('progressIn')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
-    function progressIn($v1,$v2, $val) {
+    function progressIn($v1, $v2, $val)
+    {
 
 
-       return intval(progress($v1,$v2)) > $val;
+        return intval(progress($v1, $v2)) > $val;
 
     }
 }
 
-if ( ! function_exists('progressOut'))
-{
+if (!function_exists('progressOut')) {
     /**
      * Get the configuration path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
-    function progressOut($v1,$v2, $val) {
+    function progressOut($v1, $v2, $val)
+    {
 
 
-       return intval(progress($v1,$v2)) < $val;
+        return intval(progress($v1, $v2)) < $val;
+
+    }
+}
+
+if (!function_exists('calc_score')) {
+    /**
+     * Get the configuration path.
+     *
+     * @param $rows
+     * @param $product
+     * @return integer
+     */
+    function calc_score($rows)
+    {
+        $user = \App\Models\Admin\Client::find($rows->client_id);
+        if($user){
+            $orders = $user->support_orders()->pluck('id');
+            if ($orders):
+                //pega todos os items das ordems relacionada ao client
+                $sum = \App\Models\Admin\SupportOrderItem::query()->whereIn('support_order_id', array_values($orders->toArray()))->select(DB::raw('sum( total ) as result'))
+                    ->first();
+                return $user->score()->amount - $sum->result;
+            endif;
+        }
+        return 0;
+
+    }
+}
+
+if (!function_exists('calc_score_ok')) {
+    /**
+     * Get the configuration path.
+     *
+     * @param $rows
+     * @param $product
+     * @return boolean
+     */
+    function calc_score_ok($rows, $product)
+    {
+
+
+        return calc_score($rows, $product) < $product->price;
 
     }
 }

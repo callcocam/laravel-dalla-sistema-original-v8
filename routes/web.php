@@ -91,6 +91,8 @@ Route::group(['prefix'=>'/','middleware'=>['auth', 'status-published']],function
     \App\Suports\AliasRouteService::resources('posts', \App\Http\Controllers\Admin\PostController::class,'posts');
     \App\Suports\AliasRouteService::resources('downloads', \App\Http\Controllers\Admin\DownloadController::class,'downloads');
     \App\Suports\AliasRouteService::resources('material-de-apoio', \App\Http\Controllers\Admin\SupportController::class,'supports-material');
+    \App\Suports\AliasRouteService::resources('material-de-apoio-pedidos', \App\Http\Controllers\Admin\SupportOrderController::class,'supports-orders');
+    \App\Suports\AliasRouteService::resources('material-de-apoio-pedidos-items', \App\Http\Controllers\Admin\SupportItemController::class,'supports-order-items');
 
     $router->get('downloads/{id}/download', [ \App\Http\Controllers\Admin\DownloadController::class, 'download'])->name('admin.downloads.download');
 

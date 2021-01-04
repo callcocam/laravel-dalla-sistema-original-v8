@@ -241,6 +241,7 @@ abstract class AbstractController extends Controller
         if(Gate::denies(Route::currentRouteName())){
             abort(401, 'Não autorizado!!');
         }
+
         $this->results['user'] = Auth::user();
 
         $this->results['tenant'] = get_tenant();

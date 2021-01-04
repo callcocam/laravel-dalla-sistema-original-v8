@@ -63,6 +63,11 @@ class Client extends AbstractModel
         return $this->hasMany(Order::class);
     }
 
+    public function support_orders(){
+
+        return $this->hasMany(SupportOrder::class);
+    }
+
     public function meta($created){
 
         return $this->hasOne(Meta::class)->whereMonth('created_at',$created)->first();

@@ -47,7 +47,7 @@ class MenuHelper extends \ArrayObject
                     ],
                 ],
                 'supports' => [
-                    'permissions' => ['admin.supports-material.index'],
+                    'permissions' => ['admin.supports-material.index','supports-orders'],
                     'route' => null,
                     'icon' => 'i-Shopping-Cart',
                     'label' => 'Material de apoio',
@@ -55,6 +55,10 @@ class MenuHelper extends \ArrayObject
                         [
                             'route' => 'admin.supports-material.index',
                             'label' => 'Material de apoio',
+                        ],
+                        [
+                            'route' => 'admin.supports-orders.index',
+                            'label' => 'Pedidos',
                         ],
                     ],
                 ],
