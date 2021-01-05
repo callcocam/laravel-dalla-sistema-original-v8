@@ -33,7 +33,7 @@ class SupportItemController extends AbstractController
         // It will automatically use current request, get the rules, and do the validation
 
         $data = $request->all();
-dd($data);
+//dd($data);
         $product = Support::find($request->get('support_id'));
         $data['price'] = $product->price;
         $data['total'] = $product->price * $request->get('amount');

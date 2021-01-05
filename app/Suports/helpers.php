@@ -423,20 +423,21 @@ if (!function_exists('calc_score')) {
     /**
      * Get the configuration path.
      *
-     * @param $rows
+     * @param $client
      * @param $product
      * @return integer
      */
-    function calc_score($rows)
+    function calc_score($client)
     {
-        $user = \App\Models\Admin\Client::find($rows->client_id);
+
+        $user = \App\Models\Admin\Client::find($client);
         if($user){
             $orders = $user->support_orders()->pluck('id');
             if ($orders):
                 //pega todos os items das ordems relacionada ao client
                 $sum = \App\Models\Admin\SupportOrderItem::query()->whereIn('support_order_id', array_values($orders->toArray()))->select(DB::raw('sum( total ) as result'))
                     ->first();
-                return $user->score()->amount - $sum->result;
+                return $user->score()?$user->score()->amount - $sum->result:0;
             endif;
         }
         return 0;
@@ -448,15 +449,29 @@ if (!function_exists('calc_score_ok')) {
     /**
      * Get the configuration path.
      *
-     * @param $rows
+     * @param $client
      * @param $product
      * @return boolean
      */
-    function calc_score_ok($rows, $product)
+    function calc_score_ok($client, $product)
     {
 
 
-        return calc_score($rows, $product) < $product->price;
+        return calc_score($client, $product) < $product->price;
 
+    }
+}
+
+if (!function_exists('current_ponts')) {
+    /**
+     * Get the configuration path.
+     *
+     * @param $client
+     * @param $product
+     * @return boolean
+     */
+    function current_ponts(){
+
+        return calc_score(auth()->id());
     }
 }

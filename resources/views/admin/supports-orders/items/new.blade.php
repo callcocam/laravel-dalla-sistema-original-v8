@@ -1,5 +1,5 @@
 @if($products->count())
-        <h4>{{ __('Selecione Um Produto com valor abaixo de:') }} {{ calc_score($rows) }}</h4>
+        <h4>{{ __('Selecione Um Produto com valor abaixo de:') }} {{ calc_score($rows->client_id) }}</h4>
         <form action="{{ route("admin.supports-order-items.store") }}" method="post">
             @csrf
             <div class="row row-xs mb-5">
@@ -9,7 +9,7 @@
                         <option value="">==Selecione Um Produto==</option>
                         @foreach($products as $product)
                             <option
-                                @if(calc_score_ok($rows ,$product))
+                                @if(calc_score_ok($rows->client_id ,$product))
                                 disabled
                                 @else
                                 value="{{ $product->id }}"

@@ -2,7 +2,7 @@
     <th scope="row">{{ str_pad($item->id,5, '0', STR_PAD_LEFT) }}</th>
     @if(!auth()->user()->hasAnyRole('cliente'))
         <td>
-            {{ $item->client->name }}
+            {{ $item->support->name }}
         </td>
     @endif
     <td>

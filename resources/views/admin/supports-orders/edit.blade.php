@@ -15,38 +15,43 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        @include('admin.supports-orders.items.new')
-                        <div class="col-md-12 table-responsive">
-                            <table class="table table-hover mb-3">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">{{ __('Nome Do Produto') }}</th>
-                                    <th scope="col">{{ __('Quantidade') }}</th>
-                                    @if(!$user->hasAnyRole('cliente'))
-                                        <th scope="col">{{ __('Valor Unit.') }}</th>
-                                        <th scope="col">{{ __('Total') }}</th>
-                                    @endif
-                                    <th scope="col"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @forelse($rows->items()->get() as $item)
-                                    @include('admin.supports-orders.items.list', [
-                                    'item'=>$item
-                                    ])
-                                @empty
-
+                        @if(calc_score($rows->client_id))
+                            @include('admin.supports-orders.items.new')
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-hover mb-3">
+                                    <thead>
                                     <tr>
-                                        <th scope="row" colspan="6">Não a items para o pedido corrente</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">{{ __('Nome Do Produto') }}</th>
+                                        <th scope="col">{{ __('Quantidade') }}</th>
+                                        @if(!$user->hasAnyRole('cliente'))
+                                            <th scope="col">{{ __('Valor Unit.') }}</th>
+                                            <th scope="col">{{ __('Total') }}</th>
+                                        @endif
+                                        <th scope="col"></th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($rows->items()->get() as $item)
+                                        @include('admin.supports-orders.items.list', [
+                                        'item'=>$item
+                                        ])
+                                    @empty
+                                        <tr>
+                                            <th scope="row" colspan="6">Não a items para o pedido corrente</th>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
 
-                                @endforelse
-
-                                </tbody>
-                            </table>
-
-                        </div>
+                            </div>
+                        @else
+                            <div class="row">
+                                <div class="col-md-12 text-center font-25">
+                                    Não pontos suficiente para adiquirir material de suporte
+                                </div>
+                            </div>
+                        @endif
                         {{--                        <div class="col-md-12">--}}
                         {{--                            @include('admin.supports-orders.total')--}}
                         {{--                        </div>--}}

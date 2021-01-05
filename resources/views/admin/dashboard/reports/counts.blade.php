@@ -13,7 +13,7 @@
             <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"><!----><!---->
                 <div class="card-body"><!----><!----><i class="i-Calculator-3"></i>
                     <div class="content"><p class="text-muted mt-2 mb-0">Pontos</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">{{ $user->score()->amount }}</p></div>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{ current_ponts() }}</p></div>
                 </div><!----><!---->
             </div>
         </div>

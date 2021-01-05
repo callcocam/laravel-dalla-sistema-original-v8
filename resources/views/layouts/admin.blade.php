@@ -52,6 +52,7 @@
 <script src="{{ asset('_dist/admin/js/scripts/layout-sidebar-vertical.min.js') }}"></script>
 <script src="{{ asset('_dist/admin/js/plugins/tagging.min.js') }}"></script>
 <script src="{{ asset('_dist/admin/js/formatCurrency.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <!-- Charting library -->
 <script src="https://unpkg.com/chart.js@2.9.3/dist/Chart.min.js"></script>
 <!-- Chartisan -->
