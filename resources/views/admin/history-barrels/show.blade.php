@@ -34,9 +34,9 @@
 
                                         <td scope="row">
                                             @if($row->sun($row,auth()->id()) && $row->sun($row,auth()->id(), 'out'))
-                                            {{ Calcular($row->sun($row,auth()->id()), $row->sun($row,auth()->id(), 'out'), '-') }}
+                                            {{ intval(Calcular($row->sun($row,auth()->id()), $row->sun($row,auth()->id(), 'out'), '-')) }}
                                             @else
-                                                {{ $row->sun($row,auth()->id()) }}
+                                                {{ intval($row->sun($row,auth()->id())) }}
                                             @endif
                                         </td>
 
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card mt-5">
                     <div class="card-header">
                         <h1 class="card-title">Movimentações do produtos</h1>
                     </div>

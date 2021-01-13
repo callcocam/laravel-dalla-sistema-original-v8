@@ -40,10 +40,10 @@ class MenuHelper extends \ArrayObject
                             'route' => 'admin.orders.index',
                             'label' => 'Pedidos',
                         ],
-                        [
-                            'route' => 'admin.history-barrels.index',
-                            'label' => 'Histórico',
-                        ]
+//                        [
+//                            'route' => 'admin.history-barrels.index',
+//                            'label' => 'Histórico',
+//                        ]
                     ],
                 ],
                 'supports' => [

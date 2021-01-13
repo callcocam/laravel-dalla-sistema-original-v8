@@ -24,7 +24,7 @@ abstract class AbstractController extends Controller
     protected $route = '';
     protected $perPage = 50;
     protected $order = "id";
-    protected $direction = "ASC";
+    protected $direction = "DESC";
     protected $classSearch;
     protected $search = 'name';
     protected $searchId = 'id';

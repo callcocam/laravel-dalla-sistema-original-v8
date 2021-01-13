@@ -1,11 +1,9 @@
 <tr>
-    <th scope="row">{{ str_pad($item->id,5, '0', STR_PAD_LEFT) }}</th>
-    @if(!auth()->user()->hasAnyRole('cliente'))
-        <td>
-            {{ $item->support->name }}
-        </td>
-    @endif
+    <th scope="row" width="20">{{ str_pad($item->id,5, '0', STR_PAD_LEFT) }}</th>
     <td>
+        {{ $item->support->name }}
+    </td>
+    <td width="10">
         <form action="{{ route("admin.supports-order-items.destroy", $item->id ) }}" method="post"
               id="delete-{{ $item->id }}">
             @method("DELETE")
@@ -24,7 +22,7 @@
         <td>{{ form_read($item->price) }}</td>
         <td>{{ form_read($item->total) }}</td>
     @endif
-    <td>
+    <td width="150">
         <button class="btn btn-outline-danger delete-item" data-id="#delete-{{ $item->id }}"><i class="fa fa-trash"></i>
         </button>
         <button class="btn btn-outline-secondary update-item" data-id="#edit-{{ $item->id }}"><i

@@ -18,6 +18,7 @@ class LendingController extends AbstractController
 
    protected $template = 'lendings';
 
+
    protected $model = Lending::class;
 
    protected $formClass = LendingForm::class;
