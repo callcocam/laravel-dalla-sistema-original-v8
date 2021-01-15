@@ -122,11 +122,6 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/lines-of-code" />
       <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
-      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
-      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
-      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
-      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
-      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
       <path value="$PROJECT_DIR$/vendor/lucascudo/laravel-pt-br-localization" />
       <path value="$PROJECT_DIR$/vendor/consoletvs/charts" />
       <path value="$PROJECT_DIR$/vendor/chartisan/php" />
@@ -134,6 +129,11 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

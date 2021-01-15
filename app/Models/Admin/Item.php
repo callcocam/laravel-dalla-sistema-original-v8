@@ -96,7 +96,7 @@ class Item extends AbstractModel
 
         if($result){
 
-            $sum = $model->select( DB::raw('sum( total ) as valor') )->first();
+            $sum = $model->select( DB::raw('sum( total ) as valor') )->where('order_id',$model->order_id)->first();
 
             $order = $model->order()->first();
 
