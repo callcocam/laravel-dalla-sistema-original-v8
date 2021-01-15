@@ -30,7 +30,7 @@
      aria-valuemin="0" aria-valuemax="100">
     {{ progress($client_meta,$meta) }}%
 </div>
-@elseif(progressIn( $client_meta, $meta, 75))
+@elseif(progressIn( $client_meta, $meta, 75) && progressOut( $client_meta, $meta, 99))
     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
          role="progressbar"
          style="width: {{ progress($client_meta,$meta) }}%"
