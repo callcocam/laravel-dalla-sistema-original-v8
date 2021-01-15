@@ -22,8 +22,8 @@
         <td>{{ form_read($item->total) }}</td>
     @endif
     <td>
+        <button class="btn btn-outline-secondary update-item" data-id="#edit-{{ $item->id }}"><i class="fa fa-sync-alt"></i> Atualizar</button>
         <button class="btn btn-outline-danger delete-item" data-id="#delete-{{ $item->id }}" ><i class="fa fa-trash"></i></button>
-        <button class="btn btn-outline-secondary update-item" data-id="#edit-{{ $item->id }}"><i class="fa fa-sync-alt"></i> </button>
     </td>
 </tr>
 

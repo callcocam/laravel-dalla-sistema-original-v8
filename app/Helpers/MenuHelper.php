@@ -46,22 +46,22 @@ class MenuHelper extends \ArrayObject
 //                        ]
                     ],
                 ],
-                'supports' => [
-                    'permissions' => ['admin.supports-material.index','admin.supports-orders.index'],
-                    'route' => null,
-                    'icon' => 'i-Shopping-Cart',
-                    'label' => 'Material de apoio',
-                    'submenu' => [
-                        [
-                            'route' => 'admin.supports-material.index',
-                            'label' => 'Material de apoio',
-                        ],
-                        [
-                            'route' => 'admin.supports-orders.index',
-                            'label' => 'Pedidos',
-                        ],
-                    ],
-                ],
+//                'supports' => [
+//                    'permissions' => ['admin.supports-material.index','admin.supports-orders.index'],
+//                    'route' => null,
+//                    'icon' => 'i-Shopping-Cart',
+//                    'label' => 'Material de apoio',
+//                    'submenu' => [
+//                        [
+//                            'route' => 'admin.supports-material.index',
+//                            'label' => 'Material de apoio',
+//                        ],
+//                        [
+//                            'route' => 'admin.supports-orders.index',
+//                            'label' => 'Pedidos',
+//                        ],
+//                    ],
+//                ],
                 'settings' => [
                     'permissions' => ['admin.settings.setting'],
                     'route' => 'admin.settings.setting',
@@ -104,13 +104,13 @@ class MenuHelper extends \ArrayObject
                     'label' => 'Clientes',
                     'submenu' => null,
                 ],
-                'lendings' => [
-                    'permissions' => ['admin.lendings.index'],
-                    'route' => 'admin.lendings.index',
-                    'icon' => 'i-Search-on-Cloud',
-                    'label' => 'Comodata',
-                    'submenu' => null,
-                ],
+//                'lendings' => [
+//                    'permissions' => ['admin.lendings.index'],
+//                    'route' => 'admin.lendings.index',
+//                    'icon' => 'i-Search-on-Cloud',
+//                    'label' => 'Comodata',
+//                    'submenu' => null,
+//                ],
                 'posts' => [
                     'permissions' => ['admin.posts.index'],
                     'route' => 'admin.posts.index',
@@ -152,13 +152,13 @@ class MenuHelper extends \ArrayObject
                     'label' => 'Visitas',
                     'submenu' => null,
                 ],
-                'barrels.client' => [
-                    'permissions' => ['admin.barrels.client.index'],
-                    'route' => 'admin.barrels.client.index',
-                    'icon' => 'i-Search-People',
-                    'label' => 'Items/Comodata',
-                    'submenu' => null,
-                ],
+//                'barrels.client' => [
+//                    'permissions' => ['admin.barrels.client.index'],
+//                    'route' => 'admin.barrels.client.index',
+//                    'icon' => 'i-Search-People',
+//                    'label' => 'Items/Comodata',
+//                    'submenu' => null,
+//                ],
                 'metas' => [
                     'permissions' => ['admin.metas.index'],
                     'route' => 'admin.metas.index',
