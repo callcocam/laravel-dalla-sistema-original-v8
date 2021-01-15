@@ -38,4 +38,12 @@
          aria-valuemin="0" aria-valuemax="100">
         {{ progress($client_meta,$meta) }}%
     </div>
+@elseif(progressIn( $client_meta, $meta, 99))
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+         role="progressbar"
+         style="width: {{ progress($client_meta,$meta) }}%"
+         aria-valuenow="100"
+         aria-valuemin="0" aria-valuemax="100">
+        100%
+    </div>
 @endif
