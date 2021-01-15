@@ -17,7 +17,8 @@ class MetaHelper
 
         if (!$client)
             return;
-        $orders = $client->orders()->whereMonth('created_at', $currentDate)->get();
+
+        $orders = $client->orders()->whereMonth('created_at', $currentDate->format('m'))->get();
 
         if ($orders):
             $products = [];
@@ -31,7 +32,8 @@ class MetaHelper
                 $count = Item::query()->whereIn('product_id', array_values($products))
                     ->whereMonth('created_at', $currentDate)->select(DB::raw('sum( amount ) as quantity'))
                     ->first();
-                $meta = $client->meta($currentDate);
+                $meta = $client->meta($currentDate->format('m'));
+
                 if ($meta) {
                     $meta->meta = $count->quantity ?? 0;
                     $meta->save();
@@ -41,7 +43,7 @@ class MetaHelper
                         'client_id' => $client->id,
                         'meta' => $count->quantity ?? 0,
                         'status' => 'published',
-                        'create_at' => today()->format('y-m-d'),
+                        'created_at' => $currentDate->format('y-m-d'),
                         'updated_at' => today()->format('y-m-d'),
                     ]);
                 }

@@ -5,7 +5,7 @@
         <h1>{{ $tenant->name }}</h1>
         <ul>
             <li><a href="{{ route('admin.admin.index') }}">{{ __('Painel') }}</a></li>
-            <li>{{ __('Posts') }}</li>
+            <li>{{ __('Notificações') }}</li>
         </ul>
         <div style="right: 2%;position: absolute;">
             @can('admin.posts.create')
@@ -42,10 +42,14 @@
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
+                                        @if(!$user->hasAnyRole('cliente'))
                                         <th scope="col">#</th>
+                                        @endif
                                         <th scope="col">Name</th>
-                                        <th scope="col">Visualizações</th>
-                                        <th scope="col">Situação</th>
+                                        @if(!$user->hasAnyRole('cliente'))
+                                            <th scope="col">Visualizações</th>
+                                            <th scope="col">Situação</th>
+                                        @endif
                                         <th scope="col" width="200">#</th>
                                     </tr>
                                     </thead>
@@ -53,12 +57,16 @@
                                     <!-- --------------------------- tr1 -------------------------------------------->
                                     @foreach($rows as $row)
                                         <tr>
+                                            @if(!$user->hasAnyRole('cliente'))
                                             <td scope="row">{{ str_pad($row->id, 7, '0', STR_PAD_LEFT) }}</td>
+                                            @endif
                                             <td scope="row">{{ $row->name }}</td>
+                                            @if(!$user->hasAnyRole('cliente'))
                                             <td scope="row">{{ $row->views }}</td>
                                             <td scope="row"><span
                                                     class="badge badge-{{ check_status($row->status) }}">{{ check_status_text($row->status) }}</span>
                                             </td>
+                                            @endif
                                             <td scope="row">
                                                 @can('admin.posts.edit')
                                                     <a class="btn btn-primary btn-rounded"

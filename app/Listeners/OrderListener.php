@@ -18,9 +18,8 @@ class OrderListener
      */
     public function handle($event)
     {
-
         if ($event->event->status == 'completed') {
-            MetaHelper::make($event->event->client, $event->event->created_at->format('m'));
+            MetaHelper::make($event->event->client, $event->event->created_at);
             try {
                 Mail::to($event->event->client->email)->send(new OrderShipped($event->event, 'client'));
             }catch (\Exception $exception){}

@@ -38,7 +38,8 @@ class ItemController extends AbstractController
 
         if($this->getModel()->getResultLastId()){
             $order = $this->getModel()->getModel()->order;
-            MetaHelper::make($order->client,$order->created_at->format('m'));
+
+            MetaHelper::make($order->client,$order->created_at);
             notify()->success($this->getModel()->getMessage());
             return back()->with('success', $this->getModel()->getMessage());
         }

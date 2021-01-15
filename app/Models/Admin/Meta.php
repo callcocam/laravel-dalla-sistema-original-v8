@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class Meta extends AbstractModel
 {
     protected $fillable = [
-        'user_id','client_id','meta','status','updated_at',
+        'user_id','client_id','meta','status','created_at','updated_at',
     ];
 
     public function client(){
