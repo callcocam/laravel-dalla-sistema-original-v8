@@ -41,7 +41,7 @@
 @elseif(progressIn( $client_meta, $meta, 99))
     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
          role="progressbar"
-         style="width: {{ progress($client_meta,$meta) }}%"
+         style="width: 100%"
          aria-valuenow="100"
          aria-valuemin="0" aria-valuemax="100">
         100%
