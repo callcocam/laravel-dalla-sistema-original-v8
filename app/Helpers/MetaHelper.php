@@ -30,7 +30,7 @@ class MetaHelper
 
             if ($products):
                 $count = Item::query()->whereIn('product_id', array_values($products))
-                    ->whereMonth('created_at', $currentDate)->select(DB::raw('sum( amount ) as quantity'))
+                    ->whereMonth('created_at', $currentDate->format('m'))->select(DB::raw('sum( amount ) as quantity'))
                     ->first();
                 $meta = $client->meta($currentDate->format('m'));
 
