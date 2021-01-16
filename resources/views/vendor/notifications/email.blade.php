@@ -43,9 +43,7 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Regards'),<br>
-{{ config('app.name') }}
-@endif
+Atenciosamente, Dalla Cervejaria
 
 {{-- Subcopy --}}
 @isset($actionText)

@@ -43,7 +43,7 @@ class MyResetPassword extends Notification
     {
 
         return (new MailMessage)
-            ->subject('Assunto do email')
+            ->subject('RECUPERAR SENHA')
             ->greeting('Olá!')
             ->line('Você está recebendo este e-mail porque nós recebemos uma requisição para sua conta.')
             ->action('REDEFINIR SENHA', route('password.reset', ['token'=>$this->token,'email'=>request()->get('email')]))
