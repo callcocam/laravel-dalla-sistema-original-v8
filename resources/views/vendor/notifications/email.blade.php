@@ -43,7 +43,8 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-Atenciosamente, Dalla Cervejaria
+  Atenciosamente, Dalla Cervejaria
+@endif
 
 {{-- Subcopy --}}
 @isset($actionText)
