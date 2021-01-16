@@ -43,6 +43,6 @@ class ForgotPasswordController extends Controller
             'method' => 'POST',
             'url' => route('password.email')
         ]);
-        return view('auth.passwords.email', compact('form'));
+        return view('auth.passwords.email', compact('form'))->with('success','Enviamos seu link de redefinição de senha por e-mail!');
     }
 }

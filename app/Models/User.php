@@ -27,6 +27,7 @@ class User extends UserAlias implements
 
     public function sendPasswordResetNotification($token)
     {
+
         $this->notify(new MyResetPassword($token));
     }
 }

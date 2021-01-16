@@ -13,7 +13,7 @@ class PasswordRequestForm extends AbstractForm
             ->add('token','hidden')
             ->add('email', 'email',[
                 'template' => 'laravel-form-builder::text-inline',
-                'label_show'=>false
+                'label_show'=>false,
             ])->add('password', 'password',[
                 'template' => 'laravel-form-builder::text-inline',
                 'label_show'=>false
@@ -21,7 +21,7 @@ class PasswordRequestForm extends AbstractForm
                 'template' => 'laravel-form-builder::text-inline',
                 'label_show'=>false
             ])
-            ->addSubmit('',[
+            ->addSubmit('Cadastrar nova senha',[
                 'template' => 'laravel-form-builder::button-inline'
             ]);
 
