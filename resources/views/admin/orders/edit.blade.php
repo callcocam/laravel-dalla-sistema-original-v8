@@ -1,3 +1,4 @@
+@if(!in_array($rows->status, ["completed",'preparing','transit','in_billing']))
 @extends('layouts.admin')
 @section('breadcrumb')
 <div class="breadcrumb">
@@ -156,31 +157,11 @@
 
             $($(this).data('id')).submit()
         })
-        /*$('.products').select2({
-                    ajax: {
-                        url: "{{ route('admin.products.find') }}",
-                    dataType: 'json',
-                    data: function (params) {
-                        return {
-                            q: $.trim(params.term)
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: true
-                },
-                theme: 'bootstrap4',
-                language: "pt-BR",
-                placeholder: "==Selecione Um produto==",
-
-            });*/
-
-
     });
 </script>
 @endpush
 
 @endcan
+@else
+    @include("admin.orders.cloused")
+@endif

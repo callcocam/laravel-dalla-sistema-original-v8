@@ -45,6 +45,7 @@ class OrderPolicy
      */
     public function status(User $user,Order $order)
     {
+
         if($user->hasAnyRole('pedidos')){
             return !in_array($order->status, ['completed']);
         }
@@ -59,7 +60,7 @@ class OrderPolicy
      */
     public function create(User $user)
     {
-        //
+        dd($user);
     }
 
     /**

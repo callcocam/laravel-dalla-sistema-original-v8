@@ -91,10 +91,10 @@
                                             @can('admin.orders.show')
                                                 <a class="btn btn-warning btn-rounded" href="{{ route('admin.orders.show',$row->id) }}">  @include('admin.includes.icons.show',['row'=>$row])</a>
                                             @endcan
-                                        @if(!in_array($row->status, ["completed",'open','transit']))
-                                             @can('admin.orders.destroy')
-                                                    @include('admin.includes.icons.destroy',['row'=>$row, 'route'=>'admin.orders.destroy'])
-                                            @endcan
+                                            @if(!in_array($row->status, ["completed",'preparing','transit','in_billing']))
+                                                 @can('admin.orders.destroy')
+                                                        @include('admin.includes.icons.destroy',['row'=>$row, 'route'=>'admin.orders.destroy'])
+                                                @endcan
                                             @endif
                                         </td>
                                     </tr>

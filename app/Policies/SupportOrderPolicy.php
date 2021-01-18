@@ -102,6 +102,7 @@ class SupportOrderPolicy
      */
     public function status(User $user,SupportOrder $order)
     {
+        dd('eeeee');
         return !in_array($order->status, ['completed']);
     }
 }
