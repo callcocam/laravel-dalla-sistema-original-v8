@@ -43,7 +43,7 @@ class OderForm extends AbstractForm
 
             return $this->add('status', 'choice',[
                 'choices'=>[
-                    'not-accepted'=>'Não aceito'
+                    'open'=>check_status_text('open', order_status())
                 ],
                 'default_value'=>'not-accepted',
                 'label_show'=>false,
@@ -55,9 +55,9 @@ class OderForm extends AbstractForm
 
             return $this->add('status', 'choice',[
                 'choices'=>[
-                    'not-accepted'=>'Aguardando Aprovação'
+                    'open'=>check_status_text('open', order_status())
                 ],
-                'default_value'=>'not-accepted',
+                'default_value'=>'open',
                 'label_show'=>false,
                 'expanded'=>true,
             ]);
@@ -67,7 +67,7 @@ class OderForm extends AbstractForm
 
             return $this->add('status', 'choice',[
                 'choices'=>[
-                    'transit'=>'Em transito','completed'=>'Completo'
+                    'transit'=>check_status_text('transit', order_status()),'completed'=>check_status_text('completed', order_status())
                 ],
                 'default_value'=>'open',
                 'label_show'=>false,
