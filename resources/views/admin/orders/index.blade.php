@@ -31,15 +31,11 @@
                                 </div>
                                 <div class="col-md-5 mt-3 mt-md-0">
                                     <select class="form-control" name="status"  style="width: 100%;">
-                                        <option>==Todos==</option>
-                                        <option value="not-accepted"
-                                                @if($status == "not-accepted") selected @endif>==Não aceito==</option>
-                                        <option value="open"
-                                                @if($status == "open") selected @endif>==Abertos==</option>
-                                        <option value="transit"
-                                                @if($status == "transit") selected @endif>==Em transito==</option>
-                                        <option value="completed"
-                                                @if($status == "completed") selected @endif>==Completo==</option>
+                                        <option value="">==Todos==</option>
+                                        @foreach(order_status() as $key =>$option)
+                                            <option value="{{$key}}"
+                                                    @if($status == $key) selected @endif>=={{ $option }}==</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-2 mt-3 mt-md-0">
@@ -59,7 +55,7 @@
                                      <th scope="col">Cliente</th>
                                     @endif
                                     <th scope="col">Data</th>
-                                    <th scope="col">Situação</th>
+                                    <th scope="col" width="150">Situação</th>
                                     <th scope="col">#</th>
                                 </tr>
                                 </thead>
@@ -84,7 +80,7 @@
                                             {{ date_carbom_format($row->created_at)->format('d/m/Y') }}
                                         </td>
                                         <td class="custom-align">
-                                            <span class="badge badge-pill badge-outline-{{ check_status($row->status,['not-accepted'=>'danger','open'=>'primary','transit'=>'warning','completed'=>'success']) }} p-2 m-1">{{ check_status_text($row->status,['not-accepted'=>'Aguardando Aprovação','open'=>'Aberto','transit'=>'Em transito','completed'=>'Completo']) }}</span>
+                                            <span class="badge badge-pill badge-outline-{{ check_status($row->status,order_status_color()) }} p-2 m-1">{{ check_status_text($row->status,order_status()) }}</span>
                                         </td>
                                         <td class="custom-align">
                                             @can('admin.orders.edit')

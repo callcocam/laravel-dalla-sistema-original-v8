@@ -183,6 +183,13 @@ if (!function_exists('get_tag_color')) {
 
 
 if (!function_exists('check_status_text')) {
+
+    //Aguardando processamento;
+//Não aceito;
+//Em faturamento;
+//Separando estoque / em carregamento;
+//Em trânsito;
+//Completo;
     /**
      * Get the configuration path.
      *
@@ -198,6 +205,40 @@ if (!function_exists('check_status_text')) {
 
 
         return "Rascunho";
+    }
+}
+
+if (!function_exists('order_status')) {
+
+    /**
+     * Get the configuration path.
+     *
+     * @param string $path
+     * @return string
+     */
+    function order_status()
+    {
+
+        return  ['not-accepted' => "Não aceito",
+                'open' => "Aguardando processamento",
+                'in_billing' => "Em faturamento",
+                'preparing' => "Separando estoque / em carregamento",
+                'transit' => "Em faturamento",
+                'completed' => "Completo"];
+    }
+}
+if (!function_exists('order_status_color')) {
+
+    /**
+     * Get the configuration path.
+     *
+     * @param string $path
+     * @return string
+     */
+    function order_status_color()
+    {
+
+        return  ['not-accepted'=>'danger','open'=>'primary','preparing'=>'info','in_billing'=>'dark','transit'=>'warning','completed'=>'success'];
     }
 }
 

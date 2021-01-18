@@ -19,7 +19,7 @@
             <div id="print-area">
                 <div class="row">
                     <div class="col-md-12 text-sm-right">
-                        <p><strong>Situação: </strong>{{ check_status_text($rows->status,['not-accepted'=>'Não aceito','open'=>'Aberto','transit'=>'Em transito','completed'=>'Completo']) }}</p>
+                        <p><strong>Situação: </strong>{{ check_status_text($rows->status,order_status()) }}</p>
                      </div>
                 </div>
                 <div class="mt-3 mb-4 border-top"></div>
