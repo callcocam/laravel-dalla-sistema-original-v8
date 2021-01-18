@@ -49,7 +49,7 @@ class OrderPolicy
         if($user->hasAnyRole('pedidos')){
             return !in_array($order->status, ['completed']);
         }
-        return $order->status == 'not-accepted';
+        return in_array($order->status, ['not-accepted','open']) ;
     }
 
     /**

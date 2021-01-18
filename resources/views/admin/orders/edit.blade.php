@@ -1,4 +1,4 @@
-@if(!in_array($rows->status, ["completed",'preparing','transit','in_billing']))
+@if(!in_array($rows->status, ["completed",'preparing','transit','in_billing']) || !$user->hasAnyRole('cliente'))
 @extends('layouts.admin')
 @section('breadcrumb')
 <div class="breadcrumb">
