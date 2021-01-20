@@ -16,12 +16,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     @stack('styles')
     @notify_css
+    @livewireStyles
     <!-- Styles -->
 </head>
 <body class="text-left">
 <div class="app-admin-wrap layout-sidebar-vertical sidebar-full">
-
-
+    @livewire('flash.livewire.flash-container')
     @include("admin.includes.sidebar-other")
     <div class="switch-overlay"></div>
     <!-- =============== Left side End ================-->
@@ -64,5 +64,6 @@
 @notify_render
 @stack('scripts')
 @stack('chartsJs')
+@livewireScripts
 </body>
 </html>

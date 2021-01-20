@@ -141,4 +141,6 @@ Route::group(['prefix'=>'/','middleware'=>['auth', 'status-published']],function
 
     $router->get('/meus-barrils', [\App\Http\Controllers\Admin\HistoryBarrelController::class, 'barrels'])->name('admin.barrels.client.index');
 
+    $router->get('/motoristas', [\App\Http\Controllers\Admin\DriverController::class, 'index'])->name('admin.drivers.index');
+
 });

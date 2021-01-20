@@ -104,6 +104,13 @@ class MenuHelper extends \ArrayObject
                     'label' => 'Clientes',
                     'submenu' => null,
                 ],
+                'drivers' => [
+                    'permissions' => ['admin.drivers.index'],
+                    'route' => 'admin.drivers.index',
+                    'icon' => 'i-Truck',
+                    'label' => 'Motoristas',
+                    'submenu' => null,
+                ],
 //                'lendings' => [
 //                    'permissions' => ['admin.lendings.index'],
 //                    'route' => 'admin.lendings.index',

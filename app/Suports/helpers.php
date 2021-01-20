@@ -227,6 +227,26 @@ if (!function_exists('order_status')) {
                 'completed' => "Completo"];
     }
 }
+
+
+if (!function_exists('order_status_driver')) {
+
+    /**
+     * Get the configuration path.
+     *
+     * @param string $path
+     * @return string
+     */
+    function order_status_driver()
+    {
+
+        return  [
+            'preparing' => "Alterar P/ Em Transito",
+            'transit' => "Alterar P/ Completo"
+        ];
+    }
+}
+
 if (!function_exists('order_status_color')) {
 
     /**
@@ -514,5 +534,29 @@ if (!function_exists('current_ponts')) {
     function current_ponts(){
 
         return calc_score(auth()->id());
+    }
+}
+
+
+
+
+if (! function_exists('flash')) {
+
+    /**
+     * Arrange for a normal, session-based flash message.
+     *
+     * @param  string|null $message
+     * @param  string      $level
+     * @return \App\Http\Livewire\Flash\LivewireFlashNotifier
+     */
+    function flash($message = null, $level = 'info')
+    {
+        $notifier = app('lwflash');
+
+        if (! is_null($message)) {
+            return $notifier->message($message, $level);
+        }
+
+        return $notifier;
     }
 }

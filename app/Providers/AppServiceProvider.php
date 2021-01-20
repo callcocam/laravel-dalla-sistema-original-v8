@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Forms\Core\FormBuilderServiceProvider;
+use App\Http\Livewire\Flash\LivewireFlashServiceProvider;
 use App\Models\Admin\Post;
 use App\Suports\Notify\NotifyServiceProvider;
 use App\Suports\Shinobi\ShinobiServiceProvider;
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(TenantServiceProvider::class);
+        $this->app->register(LivewireFlashServiceProvider::class);
         $this->app->register(NotifyServiceProvider::class);
         $this->app->register(ShinobiServiceProvider::class);
         $this->app->register(FormBuilderServiceProvider::class);
