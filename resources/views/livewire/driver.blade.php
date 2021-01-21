@@ -8,7 +8,8 @@
                             <div class="card-body">
                                 <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
                                     <div>
-                                        <h5>{{ $row->client->name }}</h5>
+                                        <h5>{{ $row->client->name }} </h5>
+                                        <p class="ul-task-manager__paragraph mb-3 text-18">Código do pedido: ( <strong>{{ str_pad($row->id, 7, '0', STR_PAD_LEFT) }}</strong> )</p>
                                         <p class="ul-task-manager__paragraph mb-3">
                                             Data: {{ date_carbom_format($row->created_at)->format('d/m/Y') }}</p>
                                     </div>
@@ -16,8 +17,8 @@
                                 @if($row->items)
                                     <ul class="list-group list-group-flash">
                                         @foreach($row->items as $item)
-                                            <li class="list-group-item m-0 p-0 border-bottom-dotted-gray-600">
-                                                ( {{ str_pad($item->products->id, 7, '0', STR_PAD_LEFT) }} )  {{$item->products->name}} / {{$item->amount}}
+                                            <li class="list-group-item m-0 p-0 pb-2 border-bottom-dotted-gray-600">
+                                                  {{$item->products->name}} / {{$item->amount}}
                                             </li>
                                         @endforeach
                                     </ul>
