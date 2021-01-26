@@ -22,6 +22,9 @@ class AbstractModel extends ModelAlias
 
     use Select, Eloquent, Delete, Helper, Create, Update, BelongsToTenants, SoftDeletes;
 
+    const PUBLISHD = 'published';
+    const DRAFT = 'draft';
+
     protected $results = [
         'tabla' => null,
         'result' => false,
@@ -60,7 +63,7 @@ class AbstractModel extends ModelAlias
         if(isset($data['id']) && (int)$data['id']){
 
            if($this->updateBy($data, $data['id'])){
-            
+
               //SITEMA DE TAGS
                $this->initTags($data);
                //EX RELACIONA CATEGORIAS COM POST OU PRODUCTS

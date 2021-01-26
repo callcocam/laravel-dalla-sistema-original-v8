@@ -40,6 +40,10 @@ class MenuHelper extends \ArrayObject
                             'route' => 'admin.orders.index',
                             'label' => 'Pedidos',
                         ],
+                        [
+                            'route' => 'admin.products-manage-stoque.index',
+                            'label' => 'Pedidos/Estoque',
+                        ],
 //                        [
 //                            'route' => 'admin.history-barrels.index',
 //                            'label' => 'Histórico',
@@ -108,7 +112,7 @@ class MenuHelper extends \ArrayObject
                     'permissions' => ['admin.drivers.index'],
                     'route' => 'admin.drivers.index',
                     'icon' => 'i-Truck',
-                    'label' => 'Motoristas',
+                    'label' => 'Logística/Entrega',
                     'submenu' => null,
                 ],
 //                'lendings' => [

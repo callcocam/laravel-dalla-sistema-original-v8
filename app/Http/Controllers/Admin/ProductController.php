@@ -12,6 +12,9 @@ use App\Forms\ProductForm;
 use App\Http\Requests\ProductStore;
 use App\Http\Requests\BonuStore;
 use App\Models\Admin\Product;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 
 class ProductController extends AbstractController
 {
@@ -32,6 +35,18 @@ class ProductController extends AbstractController
     public function store(ProductStore $request)
     {
         return $this->save($request);
+    }
+
+    public function stoque(){
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
+        $this->results['user'] = Auth::user();
+        $this->results['tenant'] = get_tenant();
+        $this->results['search'] = '';
+        $this->results['status'] = '';
+
+        return view(sprintf('admin.%s.stoque', $this->template), $this->results);
     }
     /**
      * Store a newly created resource in storage.
