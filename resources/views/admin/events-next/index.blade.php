@@ -9,7 +9,7 @@
         </ul>
         <div style="right: 2%;position: absolute;">
             @can('admin.events-next.create')
-                <a href="{{ route('admin.events-next.create') }}" class="btn btn-success btn-rounded pull-right"><span class="icon i-Add-File"></span> {{ __('Cadastrar Evento') }}</a>
+                <a href="{{ route('admin.events-next.create') }}" class="btn btn-success btn-rounded pull-right"><span class="icon i-Add-File"></span> {{ __('Cadastrar') }}</a>
             @endcan
         </div>
     </div>

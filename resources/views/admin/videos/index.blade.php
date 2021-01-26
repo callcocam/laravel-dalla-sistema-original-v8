@@ -8,7 +8,7 @@
             <li>{{ __('Categories') }}</li>
         </ul>
         <div style="right: 2%;position: absolute;">
-            <a href="{{ route('admin.videos.create') }}" class="btn btn-success btn-rounded pull-right"><span class="icon i-Add-File"></span> {{ __('Create Category') }}</a>
+            <a href="{{ route('admin.videos.create') }}" class="btn btn-success btn-rounded pull-right"><span class="icon i-Add-File"></span> {{ __('Cadastrar') }}</a>
         </div>
     </div>
 @endsection

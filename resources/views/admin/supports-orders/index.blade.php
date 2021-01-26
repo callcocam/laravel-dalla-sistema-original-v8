@@ -11,7 +11,7 @@
             @can('admin.supports-orders.create')
                 <a href="{{ route('admin.supports-orders.create') }}"
                    class="btn btn-success btn-rounded btn-lg pull-right"><span
-                        class="icon i-Add-Cart"></span> {{ __('Cadastrar Pedido') }}</a>
+                        class="icon i-Add-Cart"></span> {{ __('Cadastrar') }}</a>
             @endcan
         </div>
     </div>

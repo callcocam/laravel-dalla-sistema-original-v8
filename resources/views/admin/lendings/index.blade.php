@@ -13,7 +13,7 @@
             @endif
             @can('admin.lendings.create')
                 <a href="{{ route('admin.lendings.create') }}" class="btn btn-success btn-rounded pull-right"><span
-                        class="icon i-Add-File"></span> {{ __('Cadastrar Comodata') }}</a>
+                        class="icon i-Add-File"></span> {{ __('Cadastrar') }}</a>
             @endcan
         </div>
     </div>
