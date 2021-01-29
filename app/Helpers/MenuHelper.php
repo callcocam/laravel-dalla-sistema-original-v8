@@ -44,6 +44,10 @@ class MenuHelper extends \ArrayObject
                             'route' => 'admin.products-manage-stoque.index',
                             'label' => 'Pedidos/Estoque',
                         ],
+                        [
+                            'route' => 'admin.products-manage-prices.index',
+                            'label' => 'Pedidos/Preços',
+                        ],
 //                        [
 //                            'route' => 'admin.history-barrels.index',
 //                            'label' => 'Histórico',

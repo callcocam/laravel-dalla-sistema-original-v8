@@ -39,6 +39,11 @@ class Product extends AbstractModel
 
         return $this->hasMany(Bonu::class);
     }
+
+    public function prices(){
+
+        return $this->hasOne(Price::class);
+    }
     public function bonu(){
 
         return $this->belongsTo(Bonu::class);

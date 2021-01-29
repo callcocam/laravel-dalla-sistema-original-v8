@@ -63,6 +63,11 @@ class Client extends AbstractModel
         return $this->hasMany(Order::class);
     }
 
+    public function prices(){
+
+        return $this->hasMany(Price::class);
+    }
+
     public function support_orders(){
 
         return $this->hasMany(SupportOrder::class);

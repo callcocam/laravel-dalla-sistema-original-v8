@@ -48,6 +48,18 @@ class ProductController extends AbstractController
 
         return view(sprintf('admin.%s.stoque', $this->template), $this->results);
     }
+
+    public function prices(){
+        if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
+        $this->results['user'] = Auth::user();
+        $this->results['tenant'] = get_tenant();
+        $this->results['search'] = '';
+        $this->results['status'] = '';
+
+        return view(sprintf('admin.%s.prices', $this->template), $this->results);
+    }
     /**
      * Store a newly created resource in storage.
      *
