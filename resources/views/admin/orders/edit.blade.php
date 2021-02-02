@@ -23,46 +23,9 @@
 @endif
 <div class="row">
             <div class="col-md-12">
-
                 <div class="card">
                     <div class="card-body">
-
-                        @include('admin.orders.items.new')
-
-                        <div class="col-md-12 table-responsive">
-                            <table class="table table-hover mb-3">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">{{ __('Nome Do Produto') }}</th>
-                                        <th scope="col">{{ __('Quantidade') }}</th>
-                                        @if(!$user->hasAnyRole('cliente'))
-                                            <th scope="col">{{ __('Valor Unit.') }}</th>
-                                            <th scope="col">{{ __('Total') }}</th>
-                                        @endif
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($rows->items()->get() as $item)
-                                    @include('admin.orders.items.list', [
-                                    'item'=>$item
-                                    ])
-                                    @empty
-
-                                    <tr>
-                                        <th scope="row" colspan="6">Não a items para o pedido corrente</th>
-                                    </tr>
-
-                                    @endforelse
-
-                                </tbody>
-                            </table>
-
-                        </div>
-                        <div class="col-md-12">
-                            @include('admin.orders.total')
-                        </div>
+                        @livewire('orders.items',compact('rows'))
                     </div>
 
                 </div>

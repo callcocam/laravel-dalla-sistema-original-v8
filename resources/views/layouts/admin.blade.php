@@ -65,5 +65,7 @@
 @stack('scripts')
 @stack('chartsJs')
 @livewireScripts
+
+@stack('Lscripts')
 </body>
 </html>
