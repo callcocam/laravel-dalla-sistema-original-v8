@@ -25,7 +25,7 @@ class Items extends Component
     }
     public function clear()
     {
-       $this->current_item = null;
+     //  $this->current_item = null;
       //flash()->dismissable(false)->livewire($this);
     }
 
