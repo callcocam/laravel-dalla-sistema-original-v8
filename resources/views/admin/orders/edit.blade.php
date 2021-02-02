@@ -72,7 +72,6 @@
                 @endif
                 @endif
                 {!! form_row($form->description) !!}
-
             </div>
 
             <div class="col-md-12">
@@ -86,7 +85,6 @@
             <button class="btn btn-success btn-lg"><i class="fa fa-save"></i> {{ __('Atualizar Pedido') }}</button>
         </div>
         {!! form_end($form) !!}
-
     </div>
 </div>
 

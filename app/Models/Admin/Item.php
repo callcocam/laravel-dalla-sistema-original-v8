@@ -14,38 +14,43 @@ use Illuminate\Support\Facades\DB;
 class Item extends AbstractModel
 {
     protected $fillable = [
-        'user_id','order_id','product_id','amount','price','total','status', 'description','updated_at',
+        'user_id', 'order_id', 'product_id', 'amount', 'price', 'total', 'status', 'description', 'updated_at',
     ];
 
 
-    public function meta($product, $client, $order){
+    public function meta($product, $client, $order)
+    {
 
         return Meta::query()
-            ->where('product_id',$product)
+            ->where('product_id', $product)
             ->where('client_id', $client
-            )->whereMonth('created_at',$order->created_at->format('m'))->first();
+            )->whereMonth('created_at', $order->created_at->format('m'))->first();
     }
 
-    public function countItems($product, $order){
+    public function countItems($product, $order)
+    {
 
         $data = $this->query()
-            ->where('product_id',$product)
-            ->whereMonth('created_at',$order->created_at->format('m'))->select( DB::raw('sum( amount ) as quantity') )
+            ->where('product_id', $product)
+            ->whereMonth('created_at', $order->created_at->format('m'))->select(DB::raw('sum( amount ) as quantity'))
             ->first();
 
-        if($data)
+        if ($data)
             return $data->quantity;
 
         return '0';
     }
 
-    public function saveBy($data, $order=null)
+    public function saveBy($data, $order = null)
     {
-        $product = $order->client->prices()->where('product_id',$data['product_id'])->first();
-        if(!$product) {
+        $product=null;
+        if ($order->client) {
+            $product = $order->client->prices()->where('product_id', $data['product_id'])->first();
+        }
+        if (!$product) {
             $product = Product::find($data['product_id']);
         }
-        if(!$product){
+        if (!$product) {
             $this->messages = "Falhou, não foi possivel adicionar o registro, modelo não foi encontrado!!";
             return false;
         }
@@ -53,22 +58,22 @@ class Item extends AbstractModel
 
         $data['total'] = form_w(Calcular(form_read($data['amount']), form_read($product->price), '*'));
         $data['price'] = 0;
-       if ($product->price){
-           $data['price'] = form_read($product->price);
-       }
+        if ($product->price) {
+            $data['price'] = form_read($product->price);
+        }
 
-        $result =  parent::saveBy($data);
+        $result = parent::saveBy($data);
 
-        if($this->getResultLastId()){
+        if ($this->getResultLastId()) {
 
-            $sum = $this->model->select( DB::raw('sum( total ) as valor') )->where('order_id',$data['order_id'])->first();
+            $sum = $this->model->select(DB::raw('sum( total ) as valor'))->where('order_id', $data['order_id'])->first();
 
-            $order = $this->model->order()->where('id',$data['order_id'])->first();
+            $order = $this->model->order()->where('id', $data['order_id'])->first();
 
             $price = $sum->valor;
-            if($order){
-                if($order->client){
-                    if($order->client->discount){
+            if ($order) {
+                if ($order->client) {
+                    if ($order->client->discount) {
                         $discount = Calcular(form_read($price), form_read($order->client->discount), "tj");
                         $price = form_w(Calcular(form_read($price), $discount, "-"));
                         $order->discount = form_w($discount);
@@ -87,11 +92,11 @@ class Item extends AbstractModel
 
     public function deleteBy($model)
     {
-        $result =  parent::deleteBy($model);
+        $result = parent::deleteBy($model);
 
-        if($result){
+        if ($result) {
 
-            $sum = $model->select( DB::raw('sum( total ) as valor') )->where('order_id',$model->order_id)->first();
+            $sum = $model->select(DB::raw('sum( total ) as valor'))->where('order_id', $model->order_id)->first();
 
             $order = $model->order()->first();
 
@@ -104,66 +109,71 @@ class Item extends AbstractModel
         return $result;
     }
 
-    public function products(){
+    public function products()
+    {
 
-        return $this->belongsTo(Product::class,'product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function order(){
+    public function order()
+    {
 
         return $this->belongsTo(Order::class);
     }
 
-    public function orders(){
+    public function orders()
+    {
 
         return $this->belongsTo(Order::class);
     }
-    private function addBonus($data,$order){
+
+    private function addBonus($data, $order)
+    {
 
 
         $product = $this->model->products()->first();
 
-        if(!$product)
+        if (!$product)
             return $this;
 
         $client = $order->client()->first();
 
         $orders = $client->orders()->get(['id']);
 
-        if(!$orders)
+        if (!$orders)
             return $this;
 
         $ordersId = array_values($orders->toArray());
 
-        $sum = $this->model->select( DB::raw('sum( amount ) as total') )->whereIn('order_id',$ordersId)->where('product_id',$data['product_id'])->first();
+        $sum = $this->model->select(DB::raw('sum( amount ) as total'))->whereIn('order_id', $ordersId)->where('product_id', $data['product_id'])->first();
 
-        $bonus = $product->bonus()->orderBy('meta','DESC')->where('meta','<=', $sum->total);
+        $bonus = $product->bonus()->orderBy('meta', 'DESC')->where('meta', '<=', $sum->total);
 
-        if($bonus->count()){
+        if ($bonus->count()) {
 
             $bonusCurrent = $bonus->first();
 
             $bonificationsAplicatios = $product->bonifications()->where([
-                'product_id'=>$data['product_id'],
-                'client_id'=>$order->client_id,
-                'status'=>'draft'
+                'product_id' => $data['product_id'],
+                'client_id' => $order->client_id,
+                'status' => 'draft'
             ]);
 
             $bonifications = $product->bonifications()->where([
-                'product_id'=>$data['product_id'],
-                'client_id'=>$order->client_id,
-                'status'=>'published'
+                'product_id' => $data['product_id'],
+                'client_id' => $order->client_id,
+                'status' => 'published'
             ]);
 
-            if($bonificationsAplicatios->count()){
+            if ($bonificationsAplicatios->count()) {
                 $bonificationsAplicatiosTotal = $bonificationsAplicatios->first()->amount;
             }
 
             $total = (int)Calcular(form_read($sum->total), $bonificationsAplicatiosTotal, '-');
 
             //dd($sum->total,$total,$bonificationsAplicatiosTotal,$bonusCurrent->meta);
-            if($total >= $bonusCurrent->meta){
-                if($bonifications->count()){
+            if ($total >= $bonusCurrent->meta) {
+                if ($bonifications->count()) {
                     $currentBonification = $bonifications->first();
                     $currentBonification->amount = $total;
                     $currentBonification->bonu_id = $bonusCurrent->id;
@@ -172,10 +182,10 @@ class Item extends AbstractModel
                 }
 
                 $bonifications->getRelated()->saveBy([
-                    'amount'=>$total,
-                    'product_id'=>$data['product_id'],
-                    'bonu_id'=>$bonusCurrent->id,
-                    'client_id'=>$order->client_id,
+                    'amount' => $total,
+                    'product_id' => $data['product_id'],
+                    'bonu_id' => $bonusCurrent->id,
+                    'client_id' => $order->client_id,
                 ]);
             }
             return $this;
@@ -183,7 +193,8 @@ class Item extends AbstractModel
         return $this;
     }
 
-    public function sumItems($where=[]){
-        return   $this->model->select( DB::raw('sum( total ) as resut') )->where($where)->first();
+    public function sumItems($where = [])
+    {
+        return $this->model->select(DB::raw('sum( total ) as resut'))->where($where)->first();
     }
 }

@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <!-- ==== Edit Area =====-->
             {!! form_start($form) !!}
-                <div class="row justify-content-between">
+                <div class="row justify-content-between d-none">
                     <div class="col-md-6">
                         <h4 class="font-weight-bold">Informações do pedido</h4>
                         <div class="col-sm-4 form-group mb-3 pl-0">
@@ -30,22 +30,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-3 mb-4 border-top"></div>
                 <div class="row mb-5">
-
-                    @if($user->hasAnyRole('cliente'))
-                        <div class="col-md-12">
-                            <h5 class="font-weight-bold">{{ __("Cliente") }}</h5>
-                            {!! form_row($form->client_id,['value' => $user->id]) !!}
-                            {!! form_row($form->client_name,['value' => $user->name]) !!}
-                        </div>
-                    @else
-                        <div class="col-md-12">
-                            <h5 class="font-weight-bold">{{ __("Selecione um cliente") }}</h5>
-                            {!! form_row($form->client_id) !!}
-                        </div>
-                    @endif
-
+                    <div class="col-md-12">
+                        <h5 class="font-weight-bold">{{ __("Selecione um cliente") }}</h5>
+                        {!! form_row($form->client_id) !!}
+                    </div>
                     <div class="col-md-12">
                         {!! form_row($form->description) !!}
                     </div>

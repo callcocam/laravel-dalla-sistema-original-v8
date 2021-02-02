@@ -52,13 +52,11 @@ class OrderController extends AbstractController
         $data['status'] = 'not-accepted';
 
         if (auth()->user()->hasAnyRole('cliente')) {
-
             $data['client_id'] = auth()->user()->id;
+            $this->getModel()->saveBy($data);
+            return redirect()->route('admin.orders.edit', $this->getModel()->getResultLastId());
         }
-
-        $this->getModel()->saveBy($data);
-
-        return redirect()->route('admin.orders.edit', $this->getModel()->getResultLastId());
+        return parent::create();
     }
 
     public function edit($id)
