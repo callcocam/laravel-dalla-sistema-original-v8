@@ -39,20 +39,17 @@ class Item extends AbstractModel
         return '0';
     }
 
-    public function saveBy($data)
+    public function saveBy($data, $order=null)
     {
-
-        $product = Product::find($data['product_id']);
-
+        $product = $order->client->prices()->where('product_id',$data['product_id'])->first();
+        if(!$product) {
+            $product = Product::find($data['product_id']);
+        }
         if(!$product){
             $this->messages = "Falhou, não foi possivel adicionar o registro, modelo não foi encontrado!!";
             return false;
         }
         $curentItem = null;
-
-        if(isset($data['id'])){
-            //$curentItem = parent::findById($data['id']);
-        }
 
         $data['total'] = form_w(Calcular(form_read($data['amount']), form_read($product->price), '*'));
         $data['price'] = 0;
@@ -66,7 +63,7 @@ class Item extends AbstractModel
 
             $sum = $this->model->select( DB::raw('sum( total ) as valor') )->where('order_id',$data['order_id'])->first();
 
-            $order = $this->model->order()->first();
+            $order = $this->model->order()->where('id',$data['order_id'])->first();
 
             $price = $sum->valor;
             if($order){
@@ -82,8 +79,6 @@ class Item extends AbstractModel
             $order->price = $sum->valor;
 
             $order->update();
-
-            //$this->addBonus($data,$order,$curentItem);
 
         }
 

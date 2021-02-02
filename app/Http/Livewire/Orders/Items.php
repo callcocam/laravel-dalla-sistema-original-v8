@@ -46,7 +46,7 @@ class Items extends Component
             'amount' => $this->amount,
             'created_at' => today()->format('Y-m-d'),
             'updated_at' => today()->format('Y-m-d'),
-        ]);
+        ],$this->rows);
         $this->success($this->getModel());
 
     }
@@ -56,7 +56,7 @@ class Items extends Component
         if ($this->current):
             foreach ($this->current as $key => $value):
                 if ($item['id'] == $key):
-                    $this->getModel()->saveBy(array_merge($item, $value));
+                    $this->getModel()->saveBy(array_merge($item, $value),$this->rows);
                 endif;
             endforeach;
             $this->success($this->getModel());
