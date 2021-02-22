@@ -39,9 +39,10 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered align-items-center">
                                     <thead>
                                     <tr>
+                                        <th scope="col">Preview</th>
                                         <th scope="col">Name</th>
                                         @canany(['admin.downloads.edit','admin.downloads.show','admin.downloads.destroy'])
                                         <th scope="col" width="200">#</th>
@@ -51,8 +52,17 @@
                                     <tbody id="names">
                                     <!-- --------------------------- tr1 -------------------------------------------->
                                     @foreach($rows as $row)
-                                        <tr>
-                                            <td scope="row">
+                                        <tr class="align-items-center my-auto">
+                                            <td class="my-auto">
+                                                @if(\Illuminate\Support\Str::contains($row->type, 'image'))
+                                                <a target="_blank" class="btn btn-outline-danger" href="{{ route('admin.downloads.download', $row->id) }}">
+                                                    <img  height="100" src="{{ $row->cover }}" alt="{{ $row->name }}">
+                                                </a>
+                                                @else
+                                                   {{ $row->type }}
+                                                @endif
+                                            </td>
+                                            <td class="my-auto">
                                                 <a target="_blank" class="btn btn-outline-danger" href="{{ route('admin.downloads.download', $row->id) }}">
                                                     {{ $row->name }} <i class="fa fa-download"></i>
                                                 </a>
@@ -62,10 +72,6 @@
                                                 @can('admin.downloads.edit')
                                                     <a class="btn btn-primary btn-rounded"
                                                        href="{{ route('admin.downloads.edit',$row->id) }}">@include('admin.includes.icons.edit')</a>
-                                                @endcan
-                                                @can('admin.downloads.show')
-                                                    <a class="btn btn-info btn-rounded"
-                                                       href="{{ route('admin.downloads.show',$row->id) }}">@include('admin.includes.icons.show')</a>
                                                 @endcan
                                                 @can('admin.downloads.destroy')
                                                     @include('admin.includes.icons.destroy',['row'=>$row, 'route'=>'admin.downloads.destroy'])

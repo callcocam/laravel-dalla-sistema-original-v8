@@ -12,8 +12,6 @@ use App\AbstractModel;
 class Download extends AbstractModel
 {
     protected $fillable = [
-        'user_id','name','slug','file','cover','status', 'description','views','created_at','updated_at',
+        'user_id','name','slug','file','cover','type','size','status', 'description','views','created_at','updated_at',
     ];
-
-
 }

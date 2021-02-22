@@ -24,7 +24,7 @@
                 <div class="list-item col-md-4">
 
                     <div class="card o-hidden mb-4 d-flex flex-column">
-                        <div class="list-thumb d-flex"><img alt="{{ $row->name }}" src="{{ asset($row->cover) }}"></div>
+                        <div class="d-flex"><img class="bg-cover" alt="{{ $row->name }}" src="{{ asset($row->cover) }}"></div>
                         <div class="flex-grow-1 d-bock">
                             <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"><a class="w-40 w-sm-100" href="{{ route('admin.products.edit',$row->id) }}">
                                     <div class="item-title">

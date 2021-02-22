@@ -17,7 +17,7 @@ class Items extends Component
     public $amount;
     public $item;
     protected $model;
-    public $listeners = ['clear'];
+    protected $listeners = ['clear'];
 
     public function mount($rows)
     {
