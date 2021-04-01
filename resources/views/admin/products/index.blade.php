@@ -39,14 +39,18 @@
                                 <div class="row">
                                     <div class="col text-center">
                                         @can('admin.products.edit')
-                                            <a class="btn btn-warning btn-rounded text-cyan-50" href="{{ route('admin.products.edit',$row->id) }}">
+                                            <a title="Editar produto {{ $row->name }}" class="btn btn-warning btn-rounded  text-white" href="{{ route('admin.products.edit',$row->id) }}">
                                                 @include('admin.includes.icons.edit',['row'=>$row])
                                             </a>
                                         @endcan
                                     </div>
                                     <div class="col text-center">
-                                        @can('admin.products.show')
-                                            <a class="btn btn-success btn-rounded" href="{{ route('admin.products.show',$row->id) }}">
+                                        @can('admin.products-copy.index')
+                                            <a title="Copiar produto {{ $row->name }}" class="btn btn-primary btn-rounded text-white" href="{{ route('admin.products-copy.index',$row) }}">
+                                                <i class="fa fa-copy"></i></a>
+                                        @endcan
+                                            @can('admin.products.show')
+                                            <a title="Visualizar produto {{ $row->name }}" class="btn btn-success btn-rounded text-white" href="{{ route('admin.products.show',$row->id) }}">
                                                 @include('admin.includes.icons.show',['row'=>$row])</a>
                                         @endcan
                                     </div>

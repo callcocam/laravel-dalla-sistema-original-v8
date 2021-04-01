@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 class ProductController extends AbstractController
 {
 
-   protected $template = 'products';
+    protected $template = 'products';
 
-   protected $model = Product::class;
+    protected $model = Product::class;
 
-   protected $formClass = ProductForm::class;
+    protected $formClass = ProductForm::class;
 
 
     /**
@@ -37,8 +37,22 @@ class ProductController extends AbstractController
         return $this->save($request);
     }
 
-    public function stoque(){
+    public function copy(Product $product)
+    {
         if(Gate::denies(Route::currentRouteName())){
+            abort(401, 'Não autorizado!!');
+        }
+        $new = $product->replicate(['id']);
+        $new->name = sprintf("%s - %s", $new->name, date("H-m-d H:i:s"));
+        $this->getModel()->saveBy($new->toArray());
+        notify()->success(sprintf("Produto %s copiado com sucesso!!!", $product->name));
+
+        return back()->with(sprintf("Produto %s copiado com sucesso!!!", $product->name));
+    }
+
+    public function stoque()
+    {
+        if (Gate::denies(Route::currentRouteName())) {
             abort(401, 'Não autorizado!!');
         }
         $this->results['user'] = Auth::user();
@@ -49,8 +63,9 @@ class ProductController extends AbstractController
         return view(sprintf('admin.%s.stoque', $this->template), $this->results);
     }
 
-    public function prices(){
-        if(Gate::denies(Route::currentRouteName())){
+    public function prices()
+    {
+        if (Gate::denies(Route::currentRouteName())) {
             abort(401, 'Não autorizado!!');
         }
         $this->results['user'] = Auth::user();
@@ -60,13 +75,14 @@ class ProductController extends AbstractController
 
         return view(sprintf('admin.%s.prices', $this->template), $this->results);
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param BonuStore $request
      * @return \Illuminate\Http\Response
      */
-    public function bonus (BonuStore $request)
+    public function bonus(BonuStore $request)
     {
 
         $product = $this->getModel()->findById($request->get('product_id'));
@@ -75,26 +91,26 @@ class ProductController extends AbstractController
 
         $bonus->saveBy($request->all());
 
-        if($bonus->getResultLastId()){
+        if ($bonus->getResultLastId()) {
 
 
-                notify()->success($bonus->getMessage());
+            notify()->success($bonus->getMessage());
 
-                return back()->with('success', $bonus->getMessage());
+            return back()->with('success', $bonus->getMessage());
         }
         notify()->error($bonus->getMessage());
 
         return back()->withErrors($bonus->getMessage())->withInput();
     }
 
-    public function destroyBonu($product,$bonus)
+    public function destroyBonu($product, $bonus)
     {
 
         $products = $this->getModel()->findById($product);
 
         $bonus = $products->bonus()->where('id', $bonus)->first();
 
-        if($bonus->delete()){
+        if ($bonus->delete()) {
 
             notify()->success("Bonus removido com sucesso!!");
 

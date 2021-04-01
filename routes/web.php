@@ -80,6 +80,7 @@ Route::group(['prefix'=>'/','middleware'=>['auth', 'status-published']],function
     \App\Suports\AliasRouteService::resources('permissions', \App\Http\Controllers\Admin\PermissionController::class,'permissions');
     \App\Suports\AliasRouteService::resources('roles', \App\Http\Controllers\Admin\RoleController::class,'roles');
     \App\Suports\AliasRouteService::resources('produtos', ProductController::class,'products');
+    Route::get('produtos/produto/{product}/copy', [ProductController::class,'copy'])->name('admin.products-copy.index');
     Route::get('produtos-atualizacao/estoque', [ProductController::class,'stoque'])->name('admin.products-manage-stoque.index');
     Route::get('produtos/clientes/controle-de-precos', [ProductController::class,'prices'])->name('admin.products-manage-prices.index');
     \App\Suports\AliasRouteService::resources('orders', \App\Http\Controllers\Admin\OrderController::class,'orders');
