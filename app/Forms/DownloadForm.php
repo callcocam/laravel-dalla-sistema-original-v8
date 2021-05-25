@@ -3,6 +3,7 @@
 namespace App\Forms;
 
 use App\AbstractForm;
+use App\Models\Admin\Category;
 
 class DownloadForm extends AbstractForm
 {
@@ -10,6 +11,10 @@ class DownloadForm extends AbstractForm
     {
         $this ->add('id', 'hidden')
             ->add('slug', 'hidden')
+            ->add('category_id', 'entity',[
+                'class' => Category::class,
+                'empty_value' => '=== Selecione Uma Categoria ==='
+            ])
             ->add('name', 'text',
                 [
                     'label'=>'Nome'

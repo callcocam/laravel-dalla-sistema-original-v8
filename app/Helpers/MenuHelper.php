@@ -140,6 +140,13 @@ class MenuHelper extends \ArrayObject
                     'label' => 'Downloads',
                     'submenu' => null,
                 ],
+                'categories' => [
+                    'permissions' => ['admin.categories.index'],
+                    'route' => 'admin.categories.index',
+                    'icon' => 'i-Download',
+                    'label' => 'Categorias',
+                    'submenu' => null,
+                ],
                 'events' => [
                     'permissions' => ['admin.events-next.index','admin.events-last.index','admin.tasks.index'],
                     'route' => null,
@@ -147,11 +154,11 @@ class MenuHelper extends \ArrayObject
                     'label' => 'Eventos',
                     'submenu' => [
                         [
-                            'route' => 'admin.events-next.index',
+                            'route' => 'admin.events-last.index',
                             'label' => 'Últimos Eventos',
                         ],
                         [
-                            'route' => 'admin.events-last.index',
+                            'route' => 'admin.events-next.index',
                             'label' => 'Próximos Eventos',
                         ],
                         [

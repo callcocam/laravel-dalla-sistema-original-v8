@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Forms\DownloadForm;
 use App\Http\Requests\DownloadStore;
+use App\Models\Admin\Category;
 use App\Models\Admin\Download;
 
 class DownloadController extends AbstractController
@@ -32,6 +33,12 @@ class DownloadController extends AbstractController
     {
         return $this->save($request);
     }
+
+public function index()
+{
+    $this->model = Category::class;
+    return parent::index();
+}
 
     public function download($id)
     {
