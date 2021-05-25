@@ -39,6 +39,7 @@ class Price extends Component
     public function getPricesProperty()
     {
         if ($this->client):
+
             $products = Product::query()->where('status', Product::PUBLISHD)->get();
             foreach ($products as $product):
                 if (!$product->prices()->where('client_id', $this->client)->count()):
@@ -46,8 +47,8 @@ class Price extends Component
                         'user_id' => auth()->id(),
                         'client_id' => $this->client,
                         'product_id' => $product->id,
-                        'price' => form_w($product->price),
-                        'created_at' => today()->format('Y-m-d'),
+                        'price' => $product->price? form_w($product->price):0,
+                        'created_at' => now(),
                     ]);
                 endif;
             endforeach;

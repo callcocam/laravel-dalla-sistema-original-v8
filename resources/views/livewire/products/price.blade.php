@@ -18,7 +18,9 @@
         <div class="col-md-12">
             <div class="card mt-4 mb-4">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="alert alert-info w-100 text-white text-center" wire:loading>Carregando...</div>
+                    <div class="table-responsive"  wire:loading.none>
+
                         <table class="table table-bordered">
                             <thead>
                             <tr>
@@ -32,7 +34,7 @@
                             @if($this->prices)
                                 @foreach($this->prices as $row)
                                     <tr>
-                                        <td scope="row">{{ $row->product->name }}</td>
+                                        <td scope="row">{{ $row->product ? $row->product->name:'' }}</td>
                                         <td scope="row">{{ form_read($row->price) }}</td>
                                         <td scope="row">
                                             <input wire:model="form_data.{{$row->id}}" class="form-control real" type="text"></td>
