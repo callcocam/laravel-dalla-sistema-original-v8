@@ -134,18 +134,20 @@ class MenuHelper extends \ArrayObject
                     'submenu' => null,
                 ],
                 'downloads' => [
-                    'permissions' => ['admin.downloads.index'],
-                    'route' => 'admin.downloads.index',
+                    'permissions' => ['admin.categories.index','admin.downloads.index'],
+                    'route' => null,
                     'icon' => 'i-Download',
                     'label' => 'Downloads',
-                    'submenu' => null,
-                ],
-                'categories' => [
-                    'permissions' => ['admin.categories.index'],
-                    'route' => 'admin.categories.index',
-                    'icon' => 'i-Download',
-                    'label' => 'Categorias',
-                    'submenu' => null,
+                    'submenu' => [
+                        [
+                            'route' => 'admin.categories.index',
+                            'label' => 'Categorias',
+                        ],
+                        [
+                            'route' => 'admin.downloads.index',
+                            'label' => 'Cadastrar Download',
+                        ],
+                    ],
                 ],
                 'events' => [
                     'permissions' => ['admin.events-next.index','admin.events-last.index','admin.tasks.index'],

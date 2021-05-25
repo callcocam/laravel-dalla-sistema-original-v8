@@ -9,7 +9,7 @@
         </ul>
         <div style="right: 2%;position: absolute;">
             @can('admin.categories.create')
-                <a href="{{ route('admin.categories.create') }}" class="btn btn-success btn-rounded pull-right"><span class="icon i-Add-File"></span> {{ __('Cadastrar Download') }}</a>
+                <a href="{{ route('admin.categories.create') }}" class="btn btn-success btn-rounded pull-right"><span class="icon i-Add-File"></span> {{ __('Cadastrar Categoria') }}</a>
             @endcan
         </div>
     </div>
