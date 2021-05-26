@@ -49,7 +49,7 @@
                                                 <a class="text-default collapsed"
                                                    data-toggle="collapse"
                                                    href="#accordion-item-group{{ $row->id }}"
-                                                   aria-expanded="false">Click >>> {{ $row->name }}</a></h6>
+                                                   aria-expanded="false"> {{ $row->name }}</a></h6>
                                         </div>
                                         <div class="collapse" id="accordion-item-group{{ $row->id }}"
                                              data-parent="#accordionExample"

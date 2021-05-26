@@ -145,7 +145,7 @@ class MenuHelper extends \ArrayObject
                         ],
                         [
                             'route' => 'admin.downloads.index',
-                            'label' => 'Cadastrar Download',
+                            'label' => 'Downloads',
                         ],
                     ],
                 ],
