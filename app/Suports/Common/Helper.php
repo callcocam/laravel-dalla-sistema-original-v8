@@ -160,37 +160,50 @@ trait Helper
         $extension = $image->clientExtension();
         $fileType = $image->getMimeType();
         $size = $image->getSize();
+
         $original = explode('.', $image->getClientOriginalName());
 
         $name = sprintf("%s-%s-%s.%s", rand(), time(), Str::slug(reset($original)), $extension);
+        if (in_array($fileType, ['application/zip','application/pdf'])) {
+            $data = [
+                'company_id' => get_tenant_id(),
+                'uuid' => Str::uuid(),
+                'name' => $name,
+                'fullPath' => $image->store(sprintf("/%s/%s/", $this->getTable(), $date)),
+                'dir' => '/dist/upload/images',
+                'fileType' => $fileType,
+                'ext' => $extension,
+                'size' => $size
+            ];
+        } else {
+            $img = Image::make($image->getRealPath());
 
-        $img = Image::make($image->getRealPath());
+            $this->createFolder();
+            /*
+            * Redimenciona a imagem e salva o arquivo em .storage/app/teste/thumbnail
+            **/
+            $img->resize(600, 400, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(storage_path(sprintf("app/public/%s/%s/%s", $this->getTable(), $date, $name)));
 
-        $this->createFolder();
-        /*
-        * Redimenciona a imagem e salva o arquivo em .storage/app/teste/thumbnail
-        **/
-        $img->resize(600, 400, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save(storage_path(sprintf("app/public/%s/%s/%s", $this->getTable(), $date, $name)));
+            $destinationPath = storage_path('app/teste/original');
 
-        $destinationPath = storage_path('app/teste/original');
-
-        //salva o arquivo original para comparar
-        $image->move($destinationPath, $name);
-
+            //salva o arquivo original para comparar
+            $image->move($destinationPath, $name);
+            $data = [
+                'company_id' => get_tenant_id(),
+                'uuid' => Str::uuid(),
+                'name' => $name,
+                'fullPath' => sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name)),
+                'dir' => '/dist/upload/images',
+                'fileType' => $fileType,
+                'ext' => $extension,
+                'size' => $size
+            ];
+        }
         //$result = $image->storePubliclyAs(sprintf("%s/%s",$this->getTable(), $date),$name);
 
-        $data = [
-            'company_id' => get_tenant_id(),
-            'uuid' => Str::uuid(),
-            'name' => $name,
-            'fullPath' => sprintf("storage/%s", sprintf("%s/%s/%s", $this->getTable(), $date, $name)),
-            'dir' => '/dist/upload/images',
-            'fileType' => $fileType,
-            'ext' => $extension,
-            'size' => $size
-        ];
+
 
 
         /**

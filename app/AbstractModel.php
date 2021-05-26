@@ -136,6 +136,10 @@ class AbstractModel extends ModelAlias
     }
 
 
+    public function getDownloadAttribute()
+    {
+        return $this->file()->first();
+    }
     public function getCreatedMmDdYyyyAttribute()
     {
         if (empty($this->created_at)) {
